@@ -14,9 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        var tableView : UITableView = UITableView();
-        tableView.delegate = self;
-            
+        
     }
 
     override func didReceiveMemoryWarning() {
