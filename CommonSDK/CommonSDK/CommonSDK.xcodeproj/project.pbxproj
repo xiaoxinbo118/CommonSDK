@@ -10,6 +10,8 @@
 		3519C6C11D52F5A200178834 /* NSObject+RunTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3519C6C01D52F5A200178834 /* NSObject+RunTime.swift */; };
 		3519C6C31D532FF700178834 /* NSDate+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3519C6C21D532FF700178834 /* NSDate+Format.swift */; };
 		3519C6C61D53460E00178834 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3519C6C51D53460E00178834 /* UIView+Frame.swift */; };
+		3519C6CA1D5490F400178834 /* UITextField+EasyUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3519C6C91D5490F400178834 /* UITextField+EasyUI.swift */; };
+		3519C6CC1D5498AB00178834 /* String+Operate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3519C6CB1D5498AB00178834 /* String+Operate.swift */; };
 		357875911D43B1F500A0B675 /* CMNBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357875901D43B1F500A0B675 /* CMNBaseModel.swift */; };
 		3588EF391D2660AC00423CFB /* CommonSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3588EF381D2660AC00423CFB /* CommonSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3588EF401D2660AC00423CFB /* CommonSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3588EF351D2660AC00423CFB /* CommonSDK.framework */; };
@@ -33,6 +35,8 @@
 		3519C6C01D52F5A200178834 /* NSObject+RunTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+RunTime.swift"; sourceTree = "<group>"; };
 		3519C6C21D532FF700178834 /* NSDate+Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Format.swift"; sourceTree = "<group>"; };
 		3519C6C51D53460E00178834 /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
+		3519C6C91D5490F400178834 /* UITextField+EasyUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+EasyUI.swift"; sourceTree = "<group>"; };
+		3519C6CB1D5498AB00178834 /* String+Operate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Operate.swift"; sourceTree = "<group>"; };
 		357875901D43B1F500A0B675 /* CMNBaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMNBaseModel.swift; sourceTree = "<group>"; };
 		3588EF351D2660AC00423CFB /* CommonSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3588EF381D2660AC00423CFB /* CommonSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonSDK.h; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				3519C6C51D53460E00178834 /* UIView+Frame.swift */,
+				3519C6C91D5490F400178834 /* UITextField+EasyUI.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -135,6 +140,7 @@
 				35A9406F1D50B7CE00F013A4 /* NSObject+Block.swift */,
 				3519C6C01D52F5A200178834 /* NSObject+RunTime.swift */,
 				3519C6C21D532FF700178834 /* NSDate+Format.swift */,
+				3519C6CB1D5498AB00178834 /* String+Operate.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -249,7 +255,9 @@
 			files = (
 				35A9406E1D50B65C00F013A4 /* String+Format.swift in Sources */,
 				35A940701D50B7CE00F013A4 /* NSObject+Block.swift in Sources */,
+				3519C6CC1D5498AB00178834 /* String+Operate.swift in Sources */,
 				3588EF541D26618400423CFB /* String+Validate.swift in Sources */,
+				3519C6CA1D5490F400178834 /* UITextField+EasyUI.swift in Sources */,
 				3519C6C11D52F5A200178834 /* NSObject+RunTime.swift in Sources */,
 				357875911D43B1F500A0B675 /* CMNBaseModel.swift in Sources */,
 				3519C6C31D532FF700178834 /* NSDate+Format.swift in Sources */,
