@@ -9,9 +9,6 @@
 import UIKit
 
 public extension UITextField {
-    
-//[input addTarget:input action:@selector(sf_input_did_change_action:) forControlEvents:UIControlEventEditingChanged];
-    
     /**
      *  输入的最大宽度
      */
@@ -59,12 +56,24 @@ public extension UITextField {
             return;
         }
         
-        let text : String? = self.text;
+        var text : String? = self.text;
         if(String.vld_isBlank(text)) {
             return;
         }
         
+        let maxLength: NSInteger = self.easy_maxLength;
+        if(maxLength > 0 && text!.opt_length < maxLength) {
+            text = text?.opt_subStringFromIndex(maxLength);
+        }
         
+        let set: NSCharacterSet? = self.easy_characterLimit;
+        if(set != nil) {
+            let result: String = text!.stringByTrimmingCharactersInSet(set!);
+            if (result.opt_length > 0) {//需要过滤
+                text = text?.fmt_substringMeetCharacterSet(set);
+            }
+        }
         
+        self.text = text;
     }
 }
