@@ -105,10 +105,10 @@ public extension NSObject {
     *
     *  @return 被关联对象的value
     */
-    func rtm_associatedObjectForKey(key:String) -> AnyObject! {
+    func rtm_associatedObjectForKey(key:String) -> AnyObject? {
         return objc_getAssociatedObject(self, key);
     }
-    static func rtm_associatedObjectForKey(key:String) -> AnyObject! {
+    static func rtm_associatedObjectForKey(key:String) -> AnyObject? {
         return objc_getAssociatedObject(self, key);
     }
     

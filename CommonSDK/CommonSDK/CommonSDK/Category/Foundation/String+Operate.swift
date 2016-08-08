@@ -9,6 +9,10 @@
 import UIKit
 
 public extension String {
+    
+    /*!
+    *  @brief 字符串长度
+    */
     var opt_length : NSInteger {
         get {
             return self.characters.count;
@@ -19,12 +23,25 @@ public extension String {
     *  @brief  安全截取字符串（从第0位到index）
     *
     *  @param index  目标index
-    *  @param key   key
     */
     func opt_subStringToIndex(index:NSInteger) -> String {
         if(index < self.opt_length) {
             let stringIndex = self.startIndex.advancedBy(index);
             return self.substringToIndex(stringIndex);
+        }
+        return self;
+    }
+    
+
+    /*!
+    *  @brief  安全截取字符串（从第index位到最后）
+    *
+    *  @param index  目标index
+    */
+    func opt_subStringFromIndex(index:NSInteger) -> String {
+        if(index < self.opt_length) {
+            let stringIndex = self.startIndex.advancedBy(index);
+            return self.substringFromIndex(stringIndex);
         }
         
         return self;
