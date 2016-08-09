@@ -8,10 +8,12 @@
 
 import UIKit
 
+
 private class CMNSafeKVO : NSObject {
-    var keyPath : String?;
-    
-    
+    var keyPath: String?;
+    weak var object: AnyObject?;
+    var block : ((String?, AnyObject?, [String : AnyObject]?, UnsafeMutablePointer<Void>) -> Void)?;
+
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
     }
