@@ -152,6 +152,27 @@ public extension NSObject {
     }
     
     /**
+     *  移除监听者
+     *
+     *  @param observer 注册者（观察者，监听者）
+     *  @param keyPath  属性路径，若传入keyPath为空，则清空所有
+     */
+    func kvo_removeObserver(observer: NSObject) {
+        var index: NSInteger = 0;
+
+        let newArray: Array<CMNSafeKVO> = Array<CMNSafeKVO>(self.kvo_observer_manager);
+        for item: CMNSafeKVO in newArray {
+            if(item.observer == observer) {
+                objc_sync_enter(self);
+                self.kvo_observer_manager.removeAtIndex(index);
+                objc_sync_exit(self);
+                break;
+            }
+            index++;
+        }
+    }
+    
+    /**
     *  移除所有监听者
     */
     func kvo_removeAllObservers() {
