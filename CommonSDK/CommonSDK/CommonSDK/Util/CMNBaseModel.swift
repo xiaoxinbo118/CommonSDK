@@ -9,5 +9,22 @@
 import UIKit
 
 public class CMNBaseModel: NSObject {
+    
+    public init(dict: NSDictionary) {
+        
+    }
+    
+    public init(obj: NSObject) {
+        
+    }
+    
+    public func setPropertyWithDict(dict: NSDictionary) {
+        
+    }
+    
+    public func setPropertyWithObj(obj: NSObject) {
+        
+    }
 
+    
 }

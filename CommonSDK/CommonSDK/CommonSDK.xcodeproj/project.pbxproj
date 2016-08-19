@@ -12,6 +12,7 @@
 		3519C6C61D53460E00178834 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3519C6C51D53460E00178834 /* UIView+Frame.swift */; };
 		3519C6CA1D5490F400178834 /* UITextField+EasyUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3519C6C91D5490F400178834 /* UITextField+EasyUI.swift */; };
 		3519C6CC1D5498AB00178834 /* String+Operate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3519C6CB1D5498AB00178834 /* String+Operate.swift */; };
+		3539DA631D66A49C002283C1 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3539DA621D66A49C002283C1 /* UIImage+Color.swift */; };
 		353B40391D58762C00662B62 /* UITestFieldEasyUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353B40381D58762C00662B62 /* UITestFieldEasyUITest.swift */; };
 		353B403B1D59A57900662B62 /* NSObject+KVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353B403A1D59A57900662B62 /* NSObject+KVO.swift */; };
 		357875911D43B1F500A0B675 /* CMNBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357875901D43B1F500A0B675 /* CMNBaseModel.swift */; };
@@ -39,6 +40,7 @@
 		3519C6C51D53460E00178834 /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		3519C6C91D5490F400178834 /* UITextField+EasyUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+EasyUI.swift"; sourceTree = "<group>"; };
 		3519C6CB1D5498AB00178834 /* String+Operate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Operate.swift"; sourceTree = "<group>"; };
+		3539DA621D66A49C002283C1 /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		353B40381D58762C00662B62 /* UITestFieldEasyUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestFieldEasyUITest.swift; sourceTree = "<group>"; };
 		353B403A1D59A57900662B62 /* NSObject+KVO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+KVO.swift"; sourceTree = "<group>"; };
 		357875901D43B1F500A0B675 /* CMNBaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMNBaseModel.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				3519C6C51D53460E00178834 /* UIView+Frame.swift */,
 				3519C6C91D5490F400178834 /* UITextField+EasyUI.swift */,
+				3539DA621D66A49C002283C1 /* UIImage+Color.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35A9406E1D50B65C00F013A4 /* String+Format.swift in Sources */,
+				3539DA631D66A49C002283C1 /* UIImage+Color.swift in Sources */,
 				35A940701D50B7CE00F013A4 /* NSObject+Block.swift in Sources */,
 				3519C6CC1D5498AB00178834 /* String+Operate.swift in Sources */,
 				3588EF541D26618400423CFB /* String+Validate.swift in Sources */,
