@@ -121,4 +121,39 @@ public extension NSObject {
     static func rtm_removeAllAssociatedObjects() {
         objc_removeAssociatedObjects(self);
     }
+    
+    /*!
+    *  toodo 是否只读
+    *  @brief  获得所有的属性
+    */
+    func rtm_eachProperty(block: ((name: String, value: AnyObject?, inout stop: Bool) -> Void)) {
+        
+        let countPoint: UnsafeMutablePointer<UInt32> = UnsafeMutablePointer<UInt32>.alloc(1);
+        let properties: UnsafeMutablePointer<objc_property_t> = class_copyPropertyList(self.classForCoder, countPoint);
+        
+        let count: Int = Int(countPoint.memory);
+        
+        countPoint.destroy();
+        countPoint.dealloc(1);
+        
+        var stop: Bool = false;
+        
+        for(var x: Int = 0; x < count; x++) {
+            let property = properties[x];
+            let name: String! = String.fromCString(property_getName(property));
+            
+            var value: AnyObject?;
+            if(self.respondsToSelector(Selector(name))) {
+                value = self.valueForKey(name);
+            }
+            
+            block(name: name, value: value, stop: &stop);
+            
+            if(stop == true) {
+                break;
+            }
+        }
+        
+        free(properties);
+    }
 }

@@ -11,15 +11,34 @@ import CommonSDK
 
 class ViewController: UIViewController {
 
+    var name: String {
+        get {
+            return "name";
+        }
+        set(value) {
+        
+        }
+    }
+    
+    var age: Int {
+        get {
+            return 1;
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-
-        
-        UIView.animateWithDuration(NSTimeInterval) { () -> Void in
+        if(self.respondsToSelector(Selector("setName"))) {
             
+        }
+        
+
+        self.rtm_eachProperty { (name, value, stop) -> Void in
+            NSLog("%@", name);
         };
+        
     }
 
     override func didReceiveMemoryWarning() {
