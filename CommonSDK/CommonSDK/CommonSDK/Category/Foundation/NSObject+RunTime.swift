@@ -126,7 +126,7 @@ public extension NSObject {
     *  toodo 是否只读
     *  @brief  获得所有的属性
     */
-    func rtm_eachProperty(block: ((name: String, value: AnyObject?, inout stop: Bool) -> Void)) {
+    func rtm_eachProperty(block: ((name: String, value: AnyObject?, readyOnly: Bool, inout stop: Bool) -> Void)) {
         
         let countPoint: UnsafeMutablePointer<UInt32> = UnsafeMutablePointer<UInt32>.alloc(1);
         let properties: UnsafeMutablePointer<objc_property_t> = class_copyPropertyList(self.classForCoder, countPoint);
@@ -141,13 +141,14 @@ public extension NSObject {
         for(var x: Int = 0; x < count; x++) {
             let property = properties[x];
             let name: String! = String.fromCString(property_getName(property));
+            let attr: String! = String.fromCString(property_getAttributes(property));
             
             var value: AnyObject?;
             if(self.respondsToSelector(Selector(name))) {
                 value = self.valueForKey(name);
             }
             
-            block(name: name, value: value, stop: &stop);
+//            block(name: name, value: value, stop: &stop);
             
             if(stop == true) {
                 break;

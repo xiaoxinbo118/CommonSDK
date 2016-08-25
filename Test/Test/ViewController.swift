@@ -29,16 +29,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        if(self.respondsToSelector(Selector("setName"))) {
-            
-        }
-        
 
         self.rtm_eachProperty { (name, value, stop) -> Void in
             NSLog("%@", name);
         };
-        
     }
 
     override func didReceiveMemoryWarning() {
