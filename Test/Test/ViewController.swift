@@ -30,9 +30,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        self.rtm_eachProperty { (name, value, stop) -> Void in
-            NSLog("%@", name);
-        };
+//        self.rtm_eachProperty { (name, value, stop) -> Void in
+//            NSLog("%@", name);
+//        };
+        
+        let image: UIImage = UIImage.grh_image(withSize: CGSizeMake(100, 100), withImage: UIImage(imageLiteral: "pinzhi"), withBorder: 1, withBorderColor: UIColor.redColor(), withCornerRadius: 10);
+        
+        let view: UIImageView = UIImageView(image: image);
+        view.frm_left = 100;
+        view.frm_top = 100;
+        self.view.addSubview(view);
     }
 
     override func didReceiveMemoryWarning() {

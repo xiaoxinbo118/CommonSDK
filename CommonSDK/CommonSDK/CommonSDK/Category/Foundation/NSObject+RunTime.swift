@@ -141,14 +141,14 @@ public extension NSObject {
         for(var x: Int = 0; x < count; x++) {
             let property = properties[x];
             let name: String! = String.fromCString(property_getName(property));
-            let attr: String! = String.fromCString(property_getAttributes(property));
+//            let attr: String! = String.fromCString(property_getAttributes(property));
             
             var value: AnyObject?;
             if(self.respondsToSelector(Selector(name))) {
                 value = self.valueForKey(name);
             }
             
-//            block(name: name, value: value, stop: &stop);
+            block(name: name, value: value, readyOnly: false, stop: &stop);
             
             if(stop == true) {
                 break;

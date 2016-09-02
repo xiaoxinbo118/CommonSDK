@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		354400C11D78460D00C69DE7 /* Resource.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 354400C01D78460D00C69DE7 /* Resource.xcassets */; };
 		3578755F1D42278200A0B675 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3578755E1D42278200A0B675 /* AppDelegate.swift */; };
 		357875611D42278200A0B675 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357875601D42278200A0B675 /* ViewController.swift */; };
 		357875641D42278200A0B675 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357875621D42278200A0B675 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		354400C01D78460D00C69DE7 /* Resource.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resource.xcassets; sourceTree = "<group>"; };
 		3578755B1D42278200A0B675 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3578755E1D42278200A0B675 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		357875601D42278200A0B675 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				3578758C1D42279A00A0B675 /* CommonSDK.framework */,
 				3578755D1D42278200A0B675 /* Test */,
 				357875721D42278200A0B675 /* TestTests */,
+				354400C01D78460D00C69DE7 /* Resource.xcassets */,
 				3578757D1D42278200A0B675 /* TestUITests */,
 				3578755C1D42278200A0B675 /* Products */,
 			);
@@ -234,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				357875691D42278200A0B675 /* LaunchScreen.storyboard in Resources */,
+				354400C11D78460D00C69DE7 /* Resource.xcassets in Resources */,
 				357875661D42278200A0B675 /* Assets.xcassets in Resources */,
 				357875641D42278200A0B675 /* Main.storyboard in Resources */,
 			);
