@@ -120,7 +120,7 @@ public extension UIImage {
     }
     
     /**
-     *  通过当前图片，生成掉圆角边框的图片
+     *  通过当前图片，生成掉圆角边框的图片 (暂时都按centerfill处理)
      *
      *  @param size        size大小
      *  @param color       填充色颜色
@@ -138,8 +138,21 @@ public extension UIImage {
         let borderPath: UIBezierPath = UIBezierPath(roundedRect: CGRectMake(0, 0, size.width, size.height), cornerRadius: radius);
         
         borderPath.addClip();
-
         
+        var imageRect: CGRect = CGRectZero;
+        
+        var radio: CGFloat = 0;
+        if(self.size.width > self.size.height) {
+            radio = self.size.height / size.height;
+        } else {
+            radio = self.size.width / size.width;
+        }
+        
+        let newSize = CGSizeMake(self.size.width * radio, self.size.height * radio);
+        
+        imageRect.origin.x = newSize.width >= size.width ? 0 : (newSize.width - size.width) / 2;
+        imageRect.origin.y = newSize.height >= size.height ? 0 : (newSize.height - size.height) / 2;
+        imageRect.size = newSize;
         
         self.drawInRect(CGRectMake(0, 0, size.width, size.height));
         
