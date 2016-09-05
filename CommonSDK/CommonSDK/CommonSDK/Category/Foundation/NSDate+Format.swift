@@ -13,6 +13,7 @@ var fmt_formatter : NSDateFormatter = NSDateFormatter();
 var fmt_String : String = "yyyy-MM-dd HH:mm:ss";
 
 public extension NSDate {
+    
     func fmt_year() -> NSInteger {
         let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Year, fromDate: self);
         return components.year;

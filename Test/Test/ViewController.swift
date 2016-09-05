@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         button.addTarget(self, action: Selector("touchedButton"), forControlEvents: UIControlEvents.TouchUpInside);
         self.view.addSubview(button);
         
-        let right: Bool = 1.cmn_isIn([2, 3, 4]);
+//        let right: Bool = 1.cmn_isIn([2, 3, 4]);
     }
 
     override func didReceiveMemoryWarning() {

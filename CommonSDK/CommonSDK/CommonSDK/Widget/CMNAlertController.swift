@@ -39,11 +39,22 @@ public enum CMNAlertActionStyle : Int {
     }
 }
 
+/**
+ *  AlertController的按钮元素
+ *
+ */
 public class CMNAlertAction: NSObject {
     var title: String;
     var style: CMNAlertActionStyle;
     var action: ((alertAction: CMNAlertAction) -> Void)?;
     
+    /**
+     *  初始化（action通过addAction添加）
+     *
+     *  @param title 标题
+     *  @param style 类型
+     *  @param action 事件
+     */
     public init(title aTitle: String, style aStyle: CMNAlertActionStyle, action aAction: ((alertAction: CMNAlertAction) -> Void)?) {
         self.title = aTitle;
         self.style = aStyle;
@@ -60,7 +71,10 @@ public class CMNAlertAction: NSObject {
     }
 }
 
-
+/**
+ *  支持iOS7的AlertController
+ *
+ */
 public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDelegate {
     private var actions: [CMNAlertAction] = [];
     private var adaptiveAlert: AnyObject?;
@@ -74,22 +88,55 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
         }
     };
     
+    /**
+     *  初始化（action通过addAction添加）
+     *
+     *  @param title 标题
+     *  @param message 内容
+     *  @param style 类型
+     */
     required public init(title aTitle: String?, message aMessage: String?, style aStyle:CMNAlertControllerStyle) {
         self.pStyle = aStyle;
         super.init();
         self.initAlert(title: aTitle, message: aMessage);
     }
-    
+
+    /**
+     *  初始化（Alert, 一个按钮）
+     *
+     *  @param title 标题
+     *  @param message 内容
+     *  @param confirmTitle 按钮名称
+     *  @param confirm 按钮点击事件
+     */
     convenience public init(title aTitle: String?, message aMessage: String?, confirmTitle aConfirmTitle: String, confirmAction confirm: ((alertAction: CMNAlertAction) -> Void)?) {
         self.init(title: aTitle, message: aMessage, style: CMNAlertControllerStyle.Alert);
         
         self.addAction(CMNAlertAction(title: aConfirmTitle, style: CMNAlertActionStyle.Default, action: confirm));
     }
-    
+
+    /**
+     *  初始化（Alert, 两个个按钮， 标题默认为取消、确定）
+     *
+     *  @param title 标题
+     *  @param message 内容
+     *  @param cancelAction 取消点击事件
+     *  @param confirmAction 确定点击事件
+     */
     convenience public init(title aTitle: String?, message aMessage: String?, cancelAction cancel: ((alertAction: CMNAlertAction) -> Void)?, confirmAction confirm: ((alertAction: CMNAlertAction) -> Void)?) {
         self.init(title: aTitle, message: aMessage, cancelTitle: "取消", cancelAction: cancel, confirmTitle: "确定", confirmAction: confirm);
     }
-    
+
+    /**
+     *  初始化（Alert, 两个个按钮）
+     *
+     *  @param title 标题
+     *  @param message 内容
+     *  @param cancelTitle 取消按钮名称
+     *  @param cancelAction 取消点击事件
+     *  @param confirmTitle 按钮名称
+     *  @param confirmAction 确定点击事件
+     */
     convenience public init(title aTitle: String?, message aMessage: String?, cancelTitle aCancelTitle: String, cancelAction cancel: ((alertAction: CMNAlertAction) -> Void)?, confirmTitle aConfirmTitle: String, confirmAction confirm: ((alertAction: CMNAlertAction) -> Void)?) {
         self.init(title: aTitle, message: aMessage, style: CMNAlertControllerStyle.Alert);
     
@@ -97,6 +144,11 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
         self.addAction(CMNAlertAction(title: aConfirmTitle, style: CMNAlertActionStyle.Default, action: confirm));
     }
     
+    /**
+     *  添加按钮
+     *
+     *  @param action
+     */
     public func addAction(action: CMNAlertAction) {
         self.actions.append(action);
         
@@ -128,10 +180,21 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
         }
     }
     
+    /**
+     *  显示
+     *
+     *  @param animated 是否动画
+     */
     public func present(animated flag: Bool) {
         self.present(fromViewController: nil, animated: flag);
     }
-    
+
+    /**
+     *  显示
+     * 
+     *  @param fromViewController 指定viewController
+     *  @param animated 是否动画
+     */
     public func present(fromViewController viewController: UIViewController?, animated flag: Bool) {
         if (UIDevice.cmn_isVersion8OrAbove()) {
             let alertViewController: UIAlertController? = self.adaptiveAlert as? UIAlertController;
