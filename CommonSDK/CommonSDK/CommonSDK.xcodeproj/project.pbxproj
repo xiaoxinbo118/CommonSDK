@@ -26,6 +26,7 @@
 		35A9406E1D50B65C00F013A4 /* String+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A9406D1D50B65C00F013A4 /* String+Format.swift */; };
 		35A940701D50B7CE00F013A4 /* NSObject+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A9406F1D50B7CE00F013A4 /* NSObject+Block.swift */; };
 		35F20E631D7D0E2D001AB7BB /* Equatable+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F20E621D7D0E2D001AB7BB /* Equatable+Common.swift */; };
+		35F20E671D7D46F5001AB7BB /* UIButton+EasyUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F20E661D7D46F5001AB7BB /* UIButton+EasyUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		35A9406D1D50B65C00F013A4 /* String+Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Format.swift"; sourceTree = "<group>"; };
 		35A9406F1D50B7CE00F013A4 /* NSObject+Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Block.swift"; sourceTree = "<group>"; };
 		35F20E621D7D0E2D001AB7BB /* Equatable+Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Equatable+Common.swift"; sourceTree = "<group>"; };
+		35F20E661D7D46F5001AB7BB /* UIButton+EasyUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+EasyUI.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				3519C6C51D53460E00178834 /* UIView+Frame.swift */,
 				3519C6C91D5490F400178834 /* UITextField+EasyUI.swift */,
 				3539DA621D66A49C002283C1 /* UIImage+Color.swift */,
+				35F20E661D7D46F5001AB7BB /* UIButton+EasyUI.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				3539DA631D66A49C002283C1 /* UIImage+Color.swift in Sources */,
 				35A940701D50B7CE00F013A4 /* NSObject+Block.swift in Sources */,
 				354400C61D794DFE00C69DE7 /* CMNAlertController.swift in Sources */,
+				35F20E671D7D46F5001AB7BB /* UIButton+EasyUI.swift in Sources */,
 				3519C6CC1D5498AB00178834 /* String+Operate.swift in Sources */,
 				3588EF541D26618400423CFB /* String+Validate.swift in Sources */,
 				3519C6CA1D5490F400178834 /* UITextField+EasyUI.swift in Sources */,

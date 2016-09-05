@@ -50,8 +50,12 @@ class ViewController: UIViewController {
         let button: UIButton = UIButton(type: UIButtonType.Custom);
         button.backgroundColor = UIColor.blueColor();
         button.frame = CGRectMake(100, 100, 40, 35);
+//        button.setTitle("fine", forState: UIControlState.Normal);
         button.addTarget(self, action: Selector("touchedButton"), forControlEvents: UIControlEvents.TouchUpInside);
         self.view.addSubview(button);
+        
+        button.easy_selectedTitle = "fine";
+        NSLog("%@", button.easy_selectedTitle);
         
 //        let right: Bool = 1.cmn_isIn([2, 3, 4]);
     }

@@ -46,4 +46,17 @@ public extension String {
         
         return self;
     }
+
+    /*!
+    *  @brief nil转""
+    *
+    *  @param str 字符串
+    */
+    static func opt_safeString(str: String?) -> String {
+        if (String.vld_isBlank(str)) {
+            return "";
+        } else {
+            return str!;
+        }
+    }
 }
