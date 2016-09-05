@@ -25,6 +25,7 @@
 		3588EF541D26618400423CFB /* String+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3588EF531D26618400423CFB /* String+Validate.swift */; };
 		35A9406E1D50B65C00F013A4 /* String+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A9406D1D50B65C00F013A4 /* String+Format.swift */; };
 		35A940701D50B7CE00F013A4 /* NSObject+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A9406F1D50B7CE00F013A4 /* NSObject+Block.swift */; };
+		35F20E631D7D0E2D001AB7BB /* Equatable+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F20E621D7D0E2D001AB7BB /* Equatable+Common.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		3588EF531D26618400423CFB /* String+Validate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Validate.swift"; sourceTree = "<group>"; };
 		35A9406D1D50B65C00F013A4 /* String+Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Format.swift"; sourceTree = "<group>"; };
 		35A9406F1D50B7CE00F013A4 /* NSObject+Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Block.swift"; sourceTree = "<group>"; };
+		35F20E621D7D0E2D001AB7BB /* Equatable+Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Equatable+Common.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 				353B403A1D59A57900662B62 /* NSObject+KVO.swift */,
 				354400BE1D781CC200C69DE7 /* UIImage+Graphics.swift */,
 				354400C21D79297800C69DE7 /* UIDevice+Common.swift */,
+				35F20E621D7D0E2D001AB7BB /* Equatable+Common.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				3519C6C31D532FF700178834 /* NSDate+Format.swift in Sources */,
 				354400BF1D781CC200C69DE7 /* UIImage+Graphics.swift in Sources */,
 				353B403B1D59A57900662B62 /* NSObject+KVO.swift in Sources */,
+				35F20E631D7D0E2D001AB7BB /* Equatable+Common.swift in Sources */,
 				3519C6C61D53460E00178834 /* UIView+Frame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
