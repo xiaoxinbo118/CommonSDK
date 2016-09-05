@@ -161,4 +161,16 @@ public extension UIButton {
         }
     }
     
+    /**
+     *  添加点击事件
+     *
+     *  @param target   事件执行者
+     *  @param SEL 事件方法
+     */
+    func easy_addTouchUpInsideEvent(target: AnyObject, SEL: Selector) {
+        
+        if(target.respondsToSelector(SEL)) {
+            self.addTarget(target, action: SEL, forControlEvents: UIControlEvents.TouchUpInside);
+        }
+    }
 }
