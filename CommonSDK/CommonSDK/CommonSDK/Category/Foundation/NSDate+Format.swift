@@ -72,7 +72,7 @@ public extension NSDate {
     *  @param format 格式
     *
     */
-    static func fmt_dataFromString(string:String?, format fmt:String!) -> NSDate? {
+    class func fmt_dataFromString(string:String?, format fmt:String!) -> NSDate? {
         if(string == nil) {
             return nil;
         }

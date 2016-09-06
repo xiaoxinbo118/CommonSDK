@@ -48,6 +48,11 @@ class ViewController: UIViewController {
 
         
         let button: UIButton = UIButton(type: UIButtonType.Custom);
+        
+        
+        
+        button.backgroundColor = UIColor.blueColor();
+        
         button.backgroundColor = UIColor.blueColor();
         button.frame = CGRectMake(100, 100, 40, 35);
 //        button.setTitle("fine", forState: UIControlState.Normal);

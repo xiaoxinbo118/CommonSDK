@@ -37,7 +37,7 @@ public extension NSObject {
         }
     }
     
-    static public func blk_excuteBlock(block:CancelableBlock) {
+    class public func blk_excuteBlock(block:CancelableBlock) {
         if((block.block) != nil) {
             block.block!();
         }
@@ -81,7 +81,7 @@ public extension NSObject {
     *
     *  @param block 执行的block
     */
-    static func blk_mainThreadSyncBlock(block:dispatch_block_t) {
+    class func blk_mainThreadSyncBlock(block:dispatch_block_t) {
         let obj : CancelableBlock = CancelableBlock();
         obj.block = block;
         self.performSelectorOnMainThread(Selector("blk_excuteBlock:"), withObject:obj, waitUntilDone:true);
@@ -92,7 +92,7 @@ public extension NSObject {
      *
      *  @param block 执行的block
      */
-    static func blk_mainThreadAsyncBlock(block:dispatch_block_t) {
+    class func blk_mainThreadAsyncBlock(block:dispatch_block_t) {
         let obj : CancelableBlock = CancelableBlock();
         obj.block = block;
         self.performSelectorOnMainThread(Selector("blk_excuteBlock:"), withObject:obj, waitUntilDone:false);
@@ -103,7 +103,7 @@ public extension NSObject {
     *
     *  @param block 执行的block
     */
-    static func blk_mainThreadAfter(after:NSTimeInterval, block aBlock:dispatch_block_t) {
+    class func blk_mainThreadAfter(after:NSTimeInterval, block aBlock:dispatch_block_t) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  Int64((after * NSTimeInterval(NSEC_PER_SEC)))), dispatch_get_main_queue(), aBlock);
     }
 }
