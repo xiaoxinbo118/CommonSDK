@@ -13,7 +13,7 @@ public extension String {
     /*!
     *  @brief 字符串长度
     */
-    var opt_length : NSInteger {
+    public var opt_length : NSInteger {
         get {
             return self.characters.count;
         }
@@ -24,7 +24,7 @@ public extension String {
     *
     *  @param index  目标index
     */
-    func opt_subStringToIndex(index:NSInteger) -> String {
+    public func opt_subStringToIndex(index:NSInteger) -> String {
         if(index < self.opt_length) {
             let stringIndex = self.startIndex.advancedBy(index);
             return self.substringToIndex(stringIndex);
@@ -38,7 +38,7 @@ public extension String {
     *
     *  @param index  目标index
     */
-    func opt_subStringFromIndex(index:NSInteger) -> String {
+    public func opt_subStringFromIndex(index:NSInteger) -> String {
         if(index < self.opt_length) {
             let stringIndex = self.startIndex.advancedBy(index);
             return self.substringFromIndex(stringIndex);
@@ -52,7 +52,7 @@ public extension String {
     *
     *  @param str 字符串
     */
-    static func opt_safeString(str: String?) -> String {
+    public static func opt_safeString(str: String?) -> String {
         if (String.vld_isBlank(str)) {
             return "";
         } else {

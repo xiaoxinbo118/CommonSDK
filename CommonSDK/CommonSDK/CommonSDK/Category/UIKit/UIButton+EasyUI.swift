@@ -13,7 +13,7 @@ public extension UIButton {
     /**
      *  normal下的title
      */
-    var easy_normalTitle: String {
+    public var easy_normalTitle: String {
         get {
             return String.opt_safeString(self.titleForState(UIControlState.Normal));
         }
@@ -25,7 +25,7 @@ public extension UIButton {
     /**
      *  设置normal下的titleColor
      */
-    var easy_normalTitleColor: UIColor {
+    public var easy_normalTitleColor: UIColor {
         get {
             let color: UIColor? = self.titleColorForState(UIControlState.Normal);
             return color == nil ? UIColor.whiteColor() : color!;
@@ -38,7 +38,7 @@ public extension UIButton {
     /**
      *  设置normal下的image
      */
-    var easy_normalImage: UIImage? {
+    public var easy_normalImage: UIImage? {
         get {
             return self.imageForState(UIControlState.Normal);
         }
@@ -50,7 +50,7 @@ public extension UIButton {
     /**
      *  设置normal下的backgroud image
      */
-    var easy_normalBackgroundImage: UIImage? {
+    public var easy_normalBackgroundImage: UIImage? {
         get {
             return self.backgroundImageForState(UIControlState.Normal);
         }
@@ -62,7 +62,7 @@ public extension UIButton {
     /**
     *  设置highlighted/selected下的title
     */
-    var easy_selectedTitle: String {
+    public var easy_selectedTitle: String {
         get {
             return String.opt_safeString(self.titleForState(UIControlState.Highlighted));
         }
@@ -75,7 +75,7 @@ public extension UIButton {
     /**
      *  设置highlighted/selected下的titleColor
      */
-    var easy_selectedTitleColor: UIColor {
+    public var easy_selectedTitleColor: UIColor {
         get {
             let color: UIColor? = self.titleColorForState(UIControlState.Highlighted);
             return color == nil ? UIColor.whiteColor() : color!;
@@ -89,7 +89,7 @@ public extension UIButton {
     /**
      *  设置highlighted/selected下的image
      */
-    var easy_selectedImage: UIImage? {
+    public var easy_selectedImage: UIImage? {
         get {
             return self.imageForState(UIControlState.Highlighted);
         }
@@ -102,7 +102,7 @@ public extension UIButton {
     /**
      *  设置normal下的backgroud backgroundImage
      */
-    var easy_selectedBackgroundImage: UIImage? {
+    public var easy_selectedBackgroundImage: UIImage? {
         get {
             return self.backgroundImageForState(UIControlState.Highlighted);
         }
@@ -115,7 +115,7 @@ public extension UIButton {
     /**
      *  设置disabled下的title
      */
-    var easy_disabledTitle: String {
+    public var easy_disabledTitle: String {
         get {
             return String.opt_safeString(self.titleForState(UIControlState.Disabled));
         }
@@ -127,7 +127,7 @@ public extension UIButton {
     /**
      *  设置disabled下的titleColor
      */
-    var easy_disabledTitleColor: UIColor {
+    public var easy_disabledTitleColor: UIColor {
         get {
             let color: UIColor? = self.titleColorForState(UIControlState.Disabled);
             return color == nil ? UIColor.whiteColor() : color!;
@@ -140,7 +140,7 @@ public extension UIButton {
     /**
      *  设置disabled下的image
      */
-    var easy_disabledImage: UIImage? {
+    public var easy_disabledImage: UIImage? {
         get {
             return self.imageForState(UIControlState.Disabled);
         }
@@ -152,7 +152,7 @@ public extension UIButton {
     /**
      *  设置disabled下的backgroud backgroundImage
      */
-    var easy_disabledBackgroundImage: UIImage? {
+    public var easy_disabledBackgroundImage: UIImage? {
         get {
             return self.backgroundImageForState(UIControlState.Disabled);
         }
@@ -167,7 +167,7 @@ public extension UIButton {
      *  @param target   事件执行者
      *  @param SEL 事件方法
      */
-    func easy_addTouchUpInsideEvent(target: AnyObject, SEL: Selector) {
+    public func easy_addTouchUpInsideEvent(target: AnyObject, SEL: Selector) {
         
         if(target.respondsToSelector(SEL)) {
             self.addTarget(target, action: SEL, forControlEvents: UIControlEvents.TouchUpInside);

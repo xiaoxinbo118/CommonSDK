@@ -10,7 +10,7 @@ import UIKit
 
 public extension UIView {
     
-    var frm_origin : CGPoint {
+    public var frm_origin : CGPoint {
         get {
             return self.frame.origin;
         }
@@ -21,7 +21,7 @@ public extension UIView {
         }
     }
     
-    var frm_size : CGSize {
+    public var frm_size : CGSize {
         get {
             return self.frame.size;
         }
@@ -32,7 +32,7 @@ public extension UIView {
         }
     }
     
-    var frm_width : CGFloat {
+    public var frm_width : CGFloat {
         get {
             return self.frame.size.width;
         }
@@ -43,7 +43,7 @@ public extension UIView {
         }
     }
 
-    var frm_height : CGFloat {
+    public var frm_height : CGFloat {
         get {
             return self.frame.size.height;
         }
@@ -55,7 +55,7 @@ public extension UIView {
     }
     
     
-    var frm_left : CGFloat {
+    public var frm_left : CGFloat {
         get {
             return self.frame.origin.x;
         }
@@ -66,7 +66,7 @@ public extension UIView {
         }
     }
     
-    var frm_right : CGFloat {
+    public var frm_right : CGFloat {
         get {
             return CGRectGetMaxX(self.frame);
         }
@@ -77,7 +77,7 @@ public extension UIView {
         }
     }
     
-    var frm_top : CGFloat {
+    public var frm_top : CGFloat {
         get {
             return self.frame.origin.y;
         }
@@ -88,7 +88,7 @@ public extension UIView {
         }
     }
 
-    var frm_bottom : CGFloat {
+    public var frm_bottom : CGFloat {
         get {
             return CGRectGetMaxY(self.frame);
         }

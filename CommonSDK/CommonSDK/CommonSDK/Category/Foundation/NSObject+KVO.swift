@@ -100,7 +100,7 @@ public extension NSObject {
     *  @param options  变化
     *  @param context  其他参数
     */
-    func kvo_addObserver(observer: NSObject, keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutablePointer<Void>) {
+    public func kvo_addObserver(observer: NSObject, keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutablePointer<Void>) {
         let safeKVO: CMNSafeKVO = CMNSafeKVO();
         safeKVO.keyPath = keyPath;
         safeKVO.observer = observer;
@@ -120,7 +120,7 @@ public extension NSObject {
      *  @param context  其他参数
      *  @param callback 监听回调，请确保不要循环引用（⭐️重要）
      */
-    func kvo_addObserver(observer: NSObject, keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutablePointer<Void>, callback:((String?, AnyObject?, [String : AnyObject]?, UnsafeMutablePointer<Void>) -> Void)) {
+    public func kvo_addObserver(observer: NSObject, keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutablePointer<Void>, callback:((String?, AnyObject?, [String : AnyObject]?, UnsafeMutablePointer<Void>) -> Void)) {
         let safeKVO: CMNSafeKVO = CMNSafeKVO();
         safeKVO.keyPath = keyPath;
         safeKVO.observer = observer;
@@ -137,7 +137,7 @@ public extension NSObject {
     *  @param observer 注册者（观察者，监听者）
     *  @param keyPath  属性路径，若传入keyPath为空，则清空所有
     */
-    func kvo_removeObserver(observer: NSObject, keyPath: String) {
+    public func kvo_removeObserver(observer: NSObject, keyPath: String) {
         var index: NSInteger = 0;
 
         for item: CMNSafeKVO in self.kvo_observer_manager {
@@ -157,7 +157,7 @@ public extension NSObject {
      *  @param observer 注册者（观察者，监听者）
      *  @param keyPath  属性路径，若传入keyPath为空，则清空所有
      */
-    func kvo_removeObserver(observer: NSObject) {
+    public func kvo_removeObserver(observer: NSObject) {
         var index: NSInteger = 0;
 
         let newArray: Array<CMNSafeKVO> = Array<CMNSafeKVO>(self.kvo_observer_manager);
@@ -175,7 +175,7 @@ public extension NSObject {
     /**
     *  移除所有监听者
     */
-    func kvo_removeAllObservers() {
+    public func kvo_removeAllObservers() {
         objc_sync_enter(self);
         self.kvo_observer_manager.removeAll();
         objc_sync_exit(self);

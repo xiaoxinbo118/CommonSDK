@@ -14,32 +14,32 @@ var fmt_String : String = "yyyy-MM-dd HH:mm:ss";
 
 public extension NSDate {
     
-    func fmt_year() -> NSInteger {
+    public func fmt_year() -> NSInteger {
         let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Year, fromDate: self);
         return components.year;
     }
 
-    func fmt_month() -> NSInteger {
+    public func fmt_month() -> NSInteger {
         let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Month, fromDate: self);
         return components.month;
     }
 
-    func fmt_day() -> NSInteger {
+    public func fmt_day() -> NSInteger {
         let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Day, fromDate: self);
         return components.day;
     }
     
-    func fmt_hour() -> NSInteger {
+    public func fmt_hour() -> NSInteger {
         let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Hour, fromDate: self);
         return components.hour;
     }
     
-    func fmt_minute() -> NSInteger {
+    public func fmt_minute() -> NSInteger {
         let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Minute, fromDate: self);
         return components.minute;
     }
     
-    func fmt_second() -> NSInteger {
+    public func fmt_second() -> NSInteger {
         let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Second, fromDate: self);
         return components.second;
     }
@@ -50,7 +50,7 @@ public extension NSDate {
     *  @param format 格式
     *
     */
-    func fmt_string() -> String! {
+    public func fmt_string() -> String! {
         return self.fmt_stringWithFormat(fmt_String)
     }
     
@@ -60,7 +60,7 @@ public extension NSDate {
     *  @param format 格式
     *
     */
-    func fmt_stringWithFormat(fmt:String!) -> String {
+    public func fmt_stringWithFormat(fmt:String!) -> String {
         fmt_formatter.dateFormat = fmt;
         return fmt_formatter.stringFromDate(self);
     }
@@ -72,7 +72,7 @@ public extension NSDate {
     *  @param format 格式
     *
     */
-    class func fmt_dataFromString(string:String?, format fmt:String!) -> NSDate? {
+    public class func fmt_dataFromString(string:String?, format fmt:String!) -> NSDate? {
         if(string == nil) {
             return nil;
         }

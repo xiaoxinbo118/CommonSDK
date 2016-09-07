@@ -10,11 +10,11 @@ import UIKit
 
 public extension UIColor {
 
-    class func cmn_color(R r: NSInteger, G g: NSInteger, B b: NSInteger, A a: CGFloat) -> UIColor {
+    public class func cmn_color(R r: NSInteger, G g: NSInteger, B b: NSInteger, A a: CGFloat) -> UIColor {
         return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: a);
     }
     
-    class func cmn_color(hex aHex: NSInteger, alpha aAlpha: CGFloat) -> UIColor {
+    public class func cmn_color(hex aHex: NSInteger, alpha aAlpha: CGFloat) -> UIColor {
         return UIColor(red: CGFloat((aHex & 0xFF0000) >> 16) / 255.0, green: CGFloat((aHex & 0xFF00) >> 8) / 255.0, blue: CGFloat((aHex & 0xFF)) / 255.0, alpha: aAlpha);
     }    
 }

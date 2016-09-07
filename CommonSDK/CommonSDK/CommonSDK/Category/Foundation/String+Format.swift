@@ -16,7 +16,7 @@ public extension String {
     *
     *  @param set 集合
     */
-    func fmt_substringMeetCharacterSet(set: NSCharacterSet?) -> String {
+    public func fmt_substringMeetCharacterSet(set: NSCharacterSet?) -> String {
         if(set == nil) {
             return self;
         }

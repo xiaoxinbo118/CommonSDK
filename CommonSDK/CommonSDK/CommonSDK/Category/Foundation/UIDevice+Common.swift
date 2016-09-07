@@ -15,7 +15,7 @@ public extension UIDevice {
      *
      *  @param block 执行的block
      */
-    class func cmn_isVersion8OrAbove() -> Bool {
+    public class func cmn_isVersion8OrAbove() -> Bool {
         let version: NSString = UIDevice.currentDevice().systemVersion as NSString;
         return version.floatValue >= 8.0;
     }
@@ -25,7 +25,7 @@ public extension UIDevice {
      *
      *  @param block 执行的block
      */
-    class func cmn_isIphone4() -> Bool {
+    public class func cmn_isIphone4() -> Bool {
         if (UIScreen.mainScreen().currentMode == nil) {
             return false;
         } else {
@@ -38,7 +38,7 @@ public extension UIDevice {
      *
      *  @param block 执行的block
      */
-    class func cmn_isIphone5() -> Bool {
+    public class func cmn_isIphone5() -> Bool {
         if (UIScreen.mainScreen().currentMode == nil) {
             return false;
         } else {
@@ -51,7 +51,7 @@ public extension UIDevice {
      *
      *  @param block 执行的block
      */
-    class func cmn_isIphone6() -> Bool {
+    public class func cmn_isIphone6() -> Bool {
         if (UIScreen.mainScreen().currentMode == nil) {
             return false;
         } else {

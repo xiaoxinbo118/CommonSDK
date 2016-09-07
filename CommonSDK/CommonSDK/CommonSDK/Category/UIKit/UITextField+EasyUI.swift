@@ -12,7 +12,7 @@ public extension UITextField {
     /**
      *  输入的最大宽度
      */
-    var easy_maxLength : NSInteger {
+    public var easy_maxLength : NSInteger {
         get {
             let result : AnyObject? = self.rtm_associatedObjectForKey("easy_maxLength");
             
@@ -32,7 +32,7 @@ public extension UITextField {
     /**
      *  字符限定
      */
-    var easy_characterLimit : NSCharacterSet? {
+    public var easy_characterLimit : NSCharacterSet? {
         get {
             let result = self.rtm_associatedObjectForKey("easy_characterLimit");
             return result as? NSCharacterSet;
