@@ -9,15 +9,40 @@
 import UIKit
 
 public extension UIImage {
+
+    /**
+     *  通过view生成图片
+     *
+     *  @param color 一个颜色指标【不能为nil】
+     *
+     *  @return 图片
+     */
+    class func grh_image(view aView:UIView) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(aView.frm_size, false, 0);
+        //获取图像
+
+        let context: CGContextRef? = UIGraphicsGetCurrentContext();
+        var image: UIImage?;
+        
+        if (context != nil) {
+            aView.layer.renderInContext(UIGraphicsGetCurrentContext()!);
+            UIGraphicsEndImageContext();
+        
+            image = UIGraphicsGetImageFromCurrentImageContext();
+        }
+        
+        UIGraphicsEndImageContext();
+        return image;
+    }
     
     /**
     *  返回一像素（size(1,1)）这个color颜色的图片
     *
-    *  @param color 一个颜色指标【不能为nil】
+    *  @param color 一个颜色指标
     *
     *  @return 图片
     */
-    static func grh_image(withColor color: UIColor) -> UIImage {
+    class func grh_image(withColor color: UIColor) -> UIImage {
         return self.grh_image(withColor: color, withSize: CGSizeMake(1, 1));
     }
     
@@ -29,7 +54,7 @@ public extension UIImage {
      *
      *  @return 图片
      */
-    static func grh_image(withColor color: UIColor, withSize size:CGSize) -> UIImage {
+    class func grh_image(withColor color: UIColor, withSize size:CGSize) -> UIImage {
         let rect = CGRectMake(0, 0, size.width, size.height);
         UIGraphicsBeginImageContext(size);
         
@@ -52,7 +77,7 @@ public extension UIImage {
     *
     *  @return 图片
     */
-    static func grh_image(withColor color: UIColor, withCornerRadius cornerRadius: CGFloat) -> UIImage {
+    class func grh_image(withColor color: UIColor, withCornerRadius cornerRadius: CGFloat) -> UIImage {
         let width: CGFloat = cornerRadius * 2 + 3;
         return self.grh_image(withSize: CGSizeMake(width, width), withColor: color, withBorder: 0, withBorderColor: nil, withCornerRadius: cornerRadius);
     }
@@ -67,7 +92,7 @@ public extension UIImage {
     *
     *  @return 图片
     */
-    static func grh_image(withColor color: UIColor, withBorder border: CGFloat, withBorderColor borderColor: UIColor, withCornerRadius cornerRadius: CGFloat) -> UIImage {
+    class func grh_image(withColor color: UIColor, withBorder border: CGFloat, withBorderColor borderColor: UIColor, withCornerRadius cornerRadius: CGFloat) -> UIImage {
         let width: CGFloat = cornerRadius * 2 + 3;
         return self.grh_image(withSize: CGSizeMake(width, width), withColor: color, withBorder: border, withBorderColor: borderColor, withCornerRadius: cornerRadius);
     }
@@ -83,7 +108,7 @@ public extension UIImage {
      *
      *  @return 图片
      */
-    static func grh_image(withSize size: CGSize, withColor color: UIColor?, withBorder border: CGFloat, withBorderColor borderColor: UIColor?, withCornerRadius cornerRadius: CGFloat) -> UIImage {
+    class func grh_image(withSize size: CGSize, withColor color: UIColor?, withBorder border: CGFloat, withBorderColor borderColor: UIColor?, withCornerRadius cornerRadius: CGFloat) -> UIImage {
         
         var backgroundColor: UIColor? = color;
 

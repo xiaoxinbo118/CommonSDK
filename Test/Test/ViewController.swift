@@ -51,9 +51,8 @@ class ViewController: UIViewController {
         
         
         
-        button.backgroundColor = UIColor.blueColor();
+        button.backgroundColor = UIColor.cmn_color(hex: 0x000000, alpha: 0.5);
         
-        button.backgroundColor = UIColor.blueColor();
         button.frame = CGRectMake(100, 100, 40, 35);
 //        button.setTitle("fine", forState: UIControlState.Normal);
         button.addTarget(self, action: Selector("touchedButton"), forControlEvents: UIControlEvents.TouchUpInside);
