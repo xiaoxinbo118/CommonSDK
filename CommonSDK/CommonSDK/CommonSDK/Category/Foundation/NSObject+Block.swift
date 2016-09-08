@@ -18,28 +18,30 @@ import UIKit
  这是一种不可预测的写法，可能造成main_queue阻断，如果block中又嵌套的runloop，
  将造成后续的block无法执行
  */
-public extension NSObject {
-    private class CancelableBlock : NSObject {
-        weak var target : NSObject?;
-        var block : ()->() = {};
-        
-        public override init() {
-            super.init();
-        }
-        
-        func cancel() {
-            if(self.target != nil) {
-                NSObject.cancelPreviousPerformRequests(withTarget: self.target!, selector: #selector(NSObject.blk_excute(block:)), object: self)
-            }
-        }
+
+public class CancelableBlock : NSObject {
+    weak var target : NSObject?;
+    var block : ()->() = {};
+    
+    public override init() {
+        super.init();
     }
     
+    func cancel() {
+        if(self.target != nil) {
+            NSObject.cancelPreviousPerformRequests(withTarget: self.target!, selector: #selector(NSObject.blk_excute(block:)), object: self)
+        }
+    }
+}
+public extension NSObject {
     
-//    private func blk_excute(block aBlock:CancelableBlock) {
-//        aBlock.block();
-//    }
     
-    @objc private class func blk_excute(block aBlock:CancelableBlock) {
+    
+    @objc public func blk_excute(block aBlock:CancelableBlock) {
+        aBlock.block();
+    }
+    
+    @objc public class func blk_excute(block aBlock:CancelableBlock) {
         aBlock.block();
     }
     
