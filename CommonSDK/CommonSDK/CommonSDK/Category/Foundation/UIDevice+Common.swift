@@ -16,7 +16,7 @@ public extension UIDevice {
      *  @param block 执行的block
      */
     public class func cmn_isVersion8OrAbove() -> Bool {
-        let version: NSString = UIDevice.currentDevice().systemVersion as NSString;
+        let version: NSString = UIDevice.current.systemVersion as NSString;
         return version.floatValue >= 8.0;
     }
     
@@ -26,10 +26,10 @@ public extension UIDevice {
      *  @param block 执行的block
      */
     public class func cmn_isIphone4() -> Bool {
-        if (UIScreen.mainScreen().currentMode == nil) {
+        if (UIScreen.main.currentMode == nil) {
             return false;
         } else {
-            return CGSizeEqualToSize(CGSizeMake(640, 960), UIScreen.mainScreen().currentMode!.size);
+            return CGSize(width: 640, height: 960).equalTo(UIScreen.main.currentMode!.size);
         }
     }
     
@@ -39,10 +39,10 @@ public extension UIDevice {
      *  @param block 执行的block
      */
     public class func cmn_isIphone5() -> Bool {
-        if (UIScreen.mainScreen().currentMode == nil) {
+        if (UIScreen.main.currentMode == nil) {
             return false;
         } else {
-            return CGSizeEqualToSize(CGSizeMake(640, 1136), UIScreen.mainScreen().currentMode!.size);
+            return CGSize(width: 640, height: 1136).equalTo(UIScreen.main.currentMode!.size);
         }
     }
     
@@ -52,10 +52,10 @@ public extension UIDevice {
      *  @param block 执行的block
      */
     public class func cmn_isIphone6() -> Bool {
-        if (UIScreen.mainScreen().currentMode == nil) {
+        if (UIScreen.main.currentMode == nil) {
             return false;
         } else {
-            return CGSizeEqualToSize(CGSizeMake(1242, 2208), UIScreen.mainScreen().currentMode!.size);
+            return CGSize(width: 1242, height: 2208).equalTo(UIScreen.main.currentMode!.size);
         }
     }
     

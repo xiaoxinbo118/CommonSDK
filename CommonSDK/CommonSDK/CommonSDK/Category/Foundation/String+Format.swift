@@ -16,7 +16,7 @@ public extension String {
     *
     *  @param set 集合
     */
-    public func fmt_substringMeetCharacterSet(set: NSCharacterSet?) -> String {
+    public func fmt_substringMeetCharacterSet(_ set: CharacterSet?) -> String {
         if(set == nil) {
             return self;
         }
@@ -24,9 +24,10 @@ public extension String {
         let mutableString : NSMutableString = NSMutableString(string: self);
         
         let text : NSString = NSString(string: self);
-        for(var index : NSInteger = 0; index < text.length; index++) {
-            let c : unichar = text.characterAtIndex(index);
-            if(set!.characterIsMember(c)) {
+        
+        for index in 0 ..< text.length {
+            let c : unichar = text.character(at: index);
+            if(set!.contains(UnicodeScalar(c)!)) {
                 mutableString.appendFormat("%C", c);
             }
         }

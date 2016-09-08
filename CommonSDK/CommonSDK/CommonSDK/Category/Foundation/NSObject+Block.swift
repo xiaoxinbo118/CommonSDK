@@ -8,17 +8,6 @@
 
 import UIKit
 
-public class CancelableBlock : NSObject {
-    weak var target : NSObject?;
-    var block : dispatch_block_t?;
-
-    func cancel() {
-        if(self.target != nil) {
-            NSObject.cancelPreviousPerformRequestsWithTarget(self.target!, selector: Selector("blk_excuteBlock:"), object: self)
-        }
-    }
-}
-
 /**
  *  主要替换如下过程：
  dispatch_async(dispatch_get_main_queue(), ^{
@@ -30,17 +19,28 @@ public class CancelableBlock : NSObject {
  将造成后续的block无法执行
  */
 public extension NSObject {
-
-    public func blk_excuteBlock(block:CancelableBlock) {
-        if((block.block) != nil) {
-            block.block!();
+    private class CancelableBlock : NSObject {
+        weak var target : NSObject?;
+        var block : ()->() = {};
+        
+        public override init() {
+            super.init();
+        }
+        
+        func cancel() {
+            if(self.target != nil) {
+                NSObject.cancelPreviousPerformRequests(withTarget: self.target!, selector: #selector(NSObject.blk_excute(block:)), object: self)
+            }
         }
     }
     
-    public class func blk_excuteBlock(block:CancelableBlock) {
-        if((block.block) != nil) {
-            block.block!();
-        }
+    
+//    private func blk_excute(block aBlock:CancelableBlock) {
+//        aBlock.block();
+//    }
+    
+    @objc private class func blk_excute(block aBlock:CancelableBlock) {
+        aBlock.block();
     }
     
     /**
@@ -48,11 +48,11 @@ public extension NSObject {
     *
     *  @param block 执行的block
     */
-    public func blk_mainThreadSyncBlock(block:dispatch_block_t) {
+    public func blk_mainThreadSyncBlock(_ block:@escaping ()->()) {
         let obj : CancelableBlock = CancelableBlock();
         obj.target = self;
         obj.block = block;
-        self.performSelectorOnMainThread(Selector("blk_excuteBlock:"), withObject:obj, waitUntilDone:true);
+        self.performSelector(onMainThread: #selector(NSObject.blk_excute(block:)), with:obj, waitUntilDone:true);
     }
     
     /**
@@ -60,11 +60,11 @@ public extension NSObject {
     *
     *  @param block 执行的block
     */
-    public func blk_mainThreadAsyncBlock(block:dispatch_block_t) {
+    public func blk_mainThreadAsyncBlock(_ block:@escaping ()->()) {
         let obj : CancelableBlock = CancelableBlock();
         obj.target = self;
         obj.block = block;
-        self.performSelectorOnMainThread(Selector("blk_excuteBlock:"), withObject:obj, waitUntilDone:false);
+        self.performSelector(onMainThread: #selector(NSObject.blk_excute(block:)), with:obj, waitUntilDone:false);
     }
 
     /**
@@ -72,8 +72,8 @@ public extension NSObject {
     *
     *  @param block 执行的block
     */
-    public func blk_mainThreadAfter(after:NSTimeInterval, block aBlock:dispatch_block_t) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  Int64((after * NSTimeInterval(NSEC_PER_SEC)))), dispatch_get_main_queue(), aBlock);
+    public func blk_mainThreadAfter(_ after:TimeInterval, block aBlock:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64((after * TimeInterval(NSEC_PER_SEC)))) / Double(NSEC_PER_SEC), execute: aBlock);
     }
 
     /**
@@ -81,10 +81,10 @@ public extension NSObject {
     *
     *  @param block 执行的block
     */
-    public class func blk_mainThreadSyncBlock(block:dispatch_block_t) {
+    public class func blk_mainThreadSyncBlock(_ block:@escaping ()->()) {
         let obj : CancelableBlock = CancelableBlock();
         obj.block = block;
-        self.performSelectorOnMainThread(Selector("blk_excuteBlock:"), withObject:obj, waitUntilDone:true);
+        self.performSelector(onMainThread: #selector(NSObject.blk_excute(block:)), with:obj, waitUntilDone:true);
     }
     
     /**
@@ -92,10 +92,10 @@ public extension NSObject {
      *
      *  @param block 执行的block
      */
-    public class func blk_mainThreadAsyncBlock(block:dispatch_block_t) {
+    public class func blk_mainThreadAsyncBlock(_ block:@escaping ()->()) {
         let obj : CancelableBlock = CancelableBlock();
         obj.block = block;
-        self.performSelectorOnMainThread(Selector("blk_excuteBlock:"), withObject:obj, waitUntilDone:false);
+        self.performSelector(onMainThread: #selector(NSObject.blk_excute(block:)), with:obj, waitUntilDone:false);
     }
 
     /**
@@ -103,7 +103,7 @@ public extension NSObject {
     *
     *  @param block 执行的block
     */
-    public class func blk_mainThreadAfter(after:NSTimeInterval, block aBlock:dispatch_block_t) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  Int64((after * NSTimeInterval(NSEC_PER_SEC)))), dispatch_get_main_queue(), aBlock);
+    public class func blk_mainThreadAfter(_ after:TimeInterval, block aBlock:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64((after * TimeInterval(NSEC_PER_SEC)))) / Double(NSEC_PER_SEC), execute: aBlock);
     }
 }

@@ -19,39 +19,40 @@ public extension UITextField {
             if(result == nil) {
                 return 0;
             } else {
-                return result!.integerValue;
+                return result!.intValue;
             }
         }
+        
         set(newValue) {
-            self.text = self.text?.opt_subStringToIndex(newValue);
+            self.text = self.text?.opt_subString(toIndex: newValue);
             self .easy_addInputDidChangedTarget();
-            self .rtm_associateCopyAtomicObject(NSNumber(integer: newValue), key: "easy_maxLength");
+            self .rtm_associateCopyAtomicObject(NSNumber(value: newValue as Int), key: "easy_maxLength");
         }
     }
     
     /**
      *  字符限定
      */
-    public var easy_characterLimit : NSCharacterSet? {
+    public var easy_characterLimit : CharacterSet? {
         get {
             let result = self.rtm_associatedObjectForKey("easy_characterLimit");
-            return result as? NSCharacterSet;
+            return result as? CharacterSet;
         }
         set(newValue) {
             if(!String.vld_isBlank(self.text) && newValue != nil) {
                 self.text = self.text!.fmt_substringMeetCharacterSet(newValue);
             }
             self .easy_addInputDidChangedTarget();
-            self .rtm_associateCopyAtomicObject(newValue, key: "easy_characterLimit");
+            self .rtm_associateCopyAtomicObject(newValue as AnyObject, key: "easy_characterLimit");
         }
     }
     
-    private func easy_addInputDidChangedTarget() {
-        self.removeTarget(self, action: Selector("easy_inputDidChangedAction"), forControlEvents: UIControlEvents.EditingChanged);
-        self.addTarget(self, action: Selector("easy_inputDidChangedAction"), forControlEvents: UIControlEvents.EditingChanged)
+    fileprivate func easy_addInputDidChangedTarget() {
+        self.removeTarget(self, action: #selector(easy_inputDidChangedAction), for: UIControlEvents.editingChanged);
+        self.addTarget(self, action:  #selector(easy_inputDidChangedAction), for: UIControlEvents.editingChanged)
     }
     
-    private func easy_inputDidChangedAction() {
+    @objc fileprivate func easy_inputDidChangedAction() {
         if(self.markedTextRange != nil) {
             return;
         }
@@ -63,12 +64,12 @@ public extension UITextField {
         
         let maxLength: NSInteger = self.easy_maxLength;
         if(maxLength > 0 && text!.opt_length < maxLength) {
-            text = text?.opt_subStringFromIndex(maxLength);
+            text = text?.opt_subString(fromIndex: maxLength);
         }
         
-        let set: NSCharacterSet? = self.easy_characterLimit;
+        let set: CharacterSet? = self.easy_characterLimit;
         if(set != nil) {
-            let result: String = text!.stringByTrimmingCharactersInSet(set!);
+            let result: String = text!.trimmingCharacters(in: set!);
             if (result.opt_length > 0) {//需要过滤
                 text = text?.fmt_substringMeetCharacterSet(set);
             }

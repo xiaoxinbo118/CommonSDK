@@ -12,18 +12,18 @@ private class CMNSafeKVO : NSObject {
     var keyPath: String?;
     weak var observer: NSObject?;
     var unsafe: AnyObject?;//用于记录监听对象的指针地址，因为移除对象需要指针地址
-    var block : ((String?, AnyObject?, [String : AnyObject]?, UnsafeMutablePointer<Void>) -> Void)?;
+    var block : ((String?, AnyObject?, [NSKeyValueChangeKey : Any]?, UnsafeMutableRawPointer?) -> Void)?;
 
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if(self.observer != nil && self.observer!.isEqual(object)) {
             return;
         }
         
         if(self.block != nil) {
-            self.block!(keyPath, object, change, context);
+            self.block!(keyPath, object as AnyObject?, change, context);
         } else if (self.observer != nil) {
-            self.observer!.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context);
+            self.observer!.observeValue(forKeyPath: keyPath, of: object, change: change, context: context);
         } else {
             self.clear();
         }
@@ -48,7 +48,7 @@ public extension NSObject {
     /**
      @brief observer管理器
      */
-    private var kvo_observer_manager: Array<CMNSafeKVO> {
+    fileprivate var kvo_observer_manager: Array<CMNSafeKVO> {
         get {
             let obj = self.rtm_associatedObjectForKey("kvo_observer_manager");
             var array: Array<CMNSafeKVO>;
@@ -56,7 +56,7 @@ public extension NSObject {
             if (obj == nil) {
                 objc_sync_enter(self);
                 array = Array<CMNSafeKVO>();
-                self.rtm_associateStrongAtomicObject(array, key: "kvo_observer_manager");
+                self.rtm_associateStrongAtomicObject(array as Any, key: "kvo_observer_manager");
                 objc_sync_exit(self);
             } else {
                 array = obj as! Array<CMNSafeKVO>;
@@ -72,7 +72,7 @@ public extension NSObject {
     }
     
     //添加监听者
-    private func kvo_setObserver(kvo: CMNSafeKVO) {
+    fileprivate func kvo_setObserver(_ kvo: CMNSafeKVO) {
         if(kvo.observer == nil) {
             return;
         }
@@ -81,10 +81,10 @@ public extension NSObject {
         var index: NSInteger = 0;
         for item: CMNSafeKVO in self.kvo_observer_manager {
             if(item.observer == kvo.observer && item.keyPath == kvo.keyPath) {
-                self.kvo_observer_manager.removeAtIndex(index);
+                self.kvo_observer_manager.remove(at: index);
                 break;
             }
-            index++;
+            index += 1;
         }
 
         self.kvo_observer_manager.append(kvo);
@@ -100,7 +100,7 @@ public extension NSObject {
     *  @param options  变化
     *  @param context  其他参数
     */
-    public func kvo_addObserver(observer: NSObject, keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutablePointer<Void>) {
+    public func kvo_addObserver(_ observer: NSObject, keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?) {
         let safeKVO: CMNSafeKVO = CMNSafeKVO();
         safeKVO.keyPath = keyPath;
         safeKVO.observer = observer;
@@ -109,7 +109,7 @@ public extension NSObject {
         
         self.kvo_setObserver(safeKVO)
         self.addObserver(safeKVO, forKeyPath:keyPath, options: options, context:context);
-        self.kvo_addObserver(observer, keyPath: keyPath, options: options, context: nil);
+//   self.kvo_addObserver(observer, keyPath: keyPath, options: options, context: nil);
     }
     
     /**
@@ -120,7 +120,7 @@ public extension NSObject {
      *  @param context  其他参数
      *  @param callback 监听回调，请确保不要循环引用（⭐️重要）
      */
-    public func kvo_addObserver(observer: NSObject, keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutablePointer<Void>, callback:((String?, AnyObject?, [String : AnyObject]?, UnsafeMutablePointer<Void>) -> Void)) {
+    public func kvo_addObserver(_ observer: NSObject, keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?, callback:@escaping ((String?, AnyObject?, [NSKeyValueChangeKey : Any]?, UnsafeMutableRawPointer?) -> Void)) {
         let safeKVO: CMNSafeKVO = CMNSafeKVO();
         safeKVO.keyPath = keyPath;
         safeKVO.observer = observer;
@@ -137,17 +137,17 @@ public extension NSObject {
     *  @param observer 注册者（观察者，监听者）
     *  @param keyPath  属性路径，若传入keyPath为空，则清空所有
     */
-    public func kvo_removeObserver(observer: NSObject, keyPath: String) {
+    public func kvo_removeObserver(_ observer: NSObject, keyPath: String) {
         var index: NSInteger = 0;
 
         for item: CMNSafeKVO in self.kvo_observer_manager {
             if(item.observer == observer && item.keyPath == keyPath) {
                 objc_sync_enter(self);
-                self.kvo_observer_manager.removeAtIndex(index);
+                self.kvo_observer_manager.remove(at: index);
                 objc_sync_exit(self);
                 break;
             }
-            index++;
+            index += 1;
         }
     }
     
@@ -157,18 +157,18 @@ public extension NSObject {
      *  @param observer 注册者（观察者，监听者）
      *  @param keyPath  属性路径，若传入keyPath为空，则清空所有
      */
-    public func kvo_removeObserver(observer: NSObject) {
+    public func kvo_removeObserver(_ observer: NSObject) {
         var index: NSInteger = 0;
 
         let newArray: Array<CMNSafeKVO> = Array<CMNSafeKVO>(self.kvo_observer_manager);
         for item: CMNSafeKVO in newArray {
             if(item.observer == observer) {
                 objc_sync_enter(self);
-                self.kvo_observer_manager.removeAtIndex(index);
+                self.kvo_observer_manager.remove(at: index);
                 objc_sync_exit(self);
                 break;
             }
-            index++;
+            index += 1;
         }
     }
     

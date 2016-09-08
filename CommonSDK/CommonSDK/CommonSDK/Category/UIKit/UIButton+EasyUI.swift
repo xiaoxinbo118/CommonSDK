@@ -15,10 +15,10 @@ public extension UIButton {
      */
     public var easy_normalTitle: String {
         get {
-            return String.opt_safeString(self.titleForState(UIControlState.Normal));
+            return String.opt_safeString(self.title(for: UIControlState.normal));
         }
         set(value) {
-            self.setTitle(value, forState: UIControlState.Normal);
+            self.setTitle(value, for: UIControlState.normal);
         }
     }
     
@@ -27,11 +27,11 @@ public extension UIButton {
      */
     public var easy_normalTitleColor: UIColor {
         get {
-            let color: UIColor? = self.titleColorForState(UIControlState.Normal);
-            return color == nil ? UIColor.whiteColor() : color!;
+            let color: UIColor? = self.titleColor(for: UIControlState.normal);
+            return color == nil ? UIColor.white : color!;
         }
         set (value) {
-            self.setTitleColor(value, forState: UIControlState.Normal);
+            self.setTitleColor(value, for: UIControlState.normal);
         }
     }
     
@@ -40,10 +40,10 @@ public extension UIButton {
      */
     public var easy_normalImage: UIImage? {
         get {
-            return self.imageForState(UIControlState.Normal);
+            return self.image(for: UIControlState.normal);
         }
         set (value) {
-            self.setImage(value, forState: UIControlState.Normal);
+            self.setImage(value, for: UIControlState.normal);
         }
     }
     
@@ -52,10 +52,10 @@ public extension UIButton {
      */
     public var easy_normalBackgroundImage: UIImage? {
         get {
-            return self.backgroundImageForState(UIControlState.Normal);
+            return self.backgroundImage(for: UIControlState.normal);
         }
         set (value) {
-            self.setBackgroundImage(value, forState: UIControlState.Normal);
+            self.setBackgroundImage(value, for: UIControlState.normal);
         }
     }
     
@@ -64,11 +64,11 @@ public extension UIButton {
     */
     public var easy_selectedTitle: String {
         get {
-            return String.opt_safeString(self.titleForState(UIControlState.Highlighted));
+            return String.opt_safeString(self.title(for: UIControlState.highlighted));
         }
         set(value) {
-            self.setTitle(value, forState: UIControlState.Highlighted);
-            self.setTitle(value, forState: UIControlState.Selected);
+            self.setTitle(value, for: UIControlState.highlighted);
+            self.setTitle(value, for: UIControlState.selected);
         }
     }
     
@@ -77,12 +77,12 @@ public extension UIButton {
      */
     public var easy_selectedTitleColor: UIColor {
         get {
-            let color: UIColor? = self.titleColorForState(UIControlState.Highlighted);
-            return color == nil ? UIColor.whiteColor() : color!;
+            let color: UIColor? = self.titleColor(for: UIControlState.highlighted);
+            return color == nil ? UIColor.white : color!;
         }
         set (value) {
-            self.setTitleColor(value, forState: UIControlState.Highlighted);
-            self.setTitleColor(value, forState: UIControlState.Selected);
+            self.setTitleColor(value, for: UIControlState.highlighted);
+            self.setTitleColor(value, for: UIControlState.selected);
         }
     }
     
@@ -91,11 +91,11 @@ public extension UIButton {
      */
     public var easy_selectedImage: UIImage? {
         get {
-            return self.imageForState(UIControlState.Highlighted);
+            return self.image(for: UIControlState.highlighted);
         }
         set (value) {
-            self.setImage(value, forState: UIControlState.Highlighted);
-            self.setImage(value, forState: UIControlState.Selected);
+            self.setImage(value, for: UIControlState.highlighted);
+            self.setImage(value, for: UIControlState.selected);
         }
     }
     
@@ -104,11 +104,11 @@ public extension UIButton {
      */
     public var easy_selectedBackgroundImage: UIImage? {
         get {
-            return self.backgroundImageForState(UIControlState.Highlighted);
+            return self.backgroundImage(for: UIControlState.highlighted);
         }
         set (value) {
-            self.setBackgroundImage(value, forState: UIControlState.Highlighted);
-            self.setBackgroundImage(value, forState: UIControlState.Selected);
+            self.setBackgroundImage(value, for: UIControlState.highlighted);
+            self.setBackgroundImage(value, for: UIControlState.selected);
         }
     }
     
@@ -117,10 +117,10 @@ public extension UIButton {
      */
     public var easy_disabledTitle: String {
         get {
-            return String.opt_safeString(self.titleForState(UIControlState.Disabled));
+            return String.opt_safeString(self.title(for: UIControlState.disabled));
         }
         set(value) {
-            self.setTitle(value, forState: UIControlState.Disabled);
+            self.setTitle(value, for: UIControlState.disabled);
         }
     }
     
@@ -129,11 +129,11 @@ public extension UIButton {
      */
     public var easy_disabledTitleColor: UIColor {
         get {
-            let color: UIColor? = self.titleColorForState(UIControlState.Disabled);
-            return color == nil ? UIColor.whiteColor() : color!;
+            let color: UIColor? = self.titleColor(for: UIControlState.disabled);
+            return color == nil ? UIColor.white : color!;
         }
         set (value) {
-            self.setTitleColor(value, forState: UIControlState.Disabled);
+            self.setTitleColor(value, for: UIControlState.disabled);
         }
     }
     
@@ -142,10 +142,10 @@ public extension UIButton {
      */
     public var easy_disabledImage: UIImage? {
         get {
-            return self.imageForState(UIControlState.Disabled);
+            return self.image(for: UIControlState.disabled);
         }
         set (value) {
-            self.setImage(value, forState: UIControlState.Disabled);
+            self.setImage(value, for: UIControlState.disabled);
         }
     }
     
@@ -154,10 +154,10 @@ public extension UIButton {
      */
     public var easy_disabledBackgroundImage: UIImage? {
         get {
-            return self.backgroundImageForState(UIControlState.Disabled);
+            return self.backgroundImage(for: UIControlState.disabled);
         }
         set (value) {
-            self.setBackgroundImage(value, forState: UIControlState.Disabled);
+            self.setBackgroundImage(value, for: UIControlState.disabled);
         }
     }
     
@@ -167,10 +167,10 @@ public extension UIButton {
      *  @param target   事件执行者
      *  @param SEL 事件方法
      */
-    public func easy_addTouchUpInsideEvent(target: AnyObject, SEL: Selector) {
+    public func easy_addTouchUpInsideEvent(_ target: AnyObject, SEL: Selector) {
         
-        if(target.respondsToSelector(SEL)) {
-            self.addTarget(target, action: SEL, forControlEvents: UIControlEvents.TouchUpInside);
+        if(target.responds(to: SEL)) {
+            self.addTarget(target, action: SEL, for: UIControlEvents.touchUpInside);
         }
     }
 }

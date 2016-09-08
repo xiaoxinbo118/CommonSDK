@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class CMNBaseModel: NSObject {
+open class CMNBaseModel: NSObject {
     
     public init(dict: NSDictionary) {
         
@@ -18,11 +18,11 @@ public class CMNBaseModel: NSObject {
         
     }
     
-    public func setPropertyWithDict(dict: NSDictionary) {
+    open func setProperty(dictionary dict: NSDictionary) {
         
     }
     
-    public func setPropertyWithObj(obj: NSObject) {
+    open func setProperty(object obj: NSObject) {
         
     }
 

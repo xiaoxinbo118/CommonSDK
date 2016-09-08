@@ -21,11 +21,11 @@ public extension UIImage {
         UIGraphicsBeginImageContextWithOptions(aView.frm_size, false, 0);
         //获取图像
 
-        let context: CGContextRef? = UIGraphicsGetCurrentContext();
+        let context: CGContext? = UIGraphicsGetCurrentContext();
         var image: UIImage?;
         
         if (context != nil) {
-            aView.layer.renderInContext(UIGraphicsGetCurrentContext()!);
+            aView.layer.render(in: UIGraphicsGetCurrentContext()!);
             UIGraphicsEndImageContext();
         
             image = UIGraphicsGetImageFromCurrentImageContext();
@@ -43,7 +43,7 @@ public extension UIImage {
     *  @return 图片
     */
     public class func grh_image(withColor color: UIColor) -> UIImage {
-        return self.grh_image(withColor: color, withSize: CGSizeMake(1, 1));
+        return self.grh_image(withColor: color, withSize: CGSize(width: 1, height: 1));
     }
     
      /**
@@ -55,14 +55,14 @@ public extension UIImage {
      *  @return 图片
      */
     public class func grh_image(withColor color: UIColor, withSize size:CGSize) -> UIImage {
-        let rect = CGRectMake(0, 0, size.width, size.height);
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height);
         UIGraphicsBeginImageContext(size);
         
-        let context: CGContextRef? = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(context, color.CGColor);
-        CGContextFillRect(context, rect);
+        let context: CGContext? = UIGraphicsGetCurrentContext();
+        context?.setFillColor(color.cgColor);
+        context?.fill(rect);
         
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext();
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!;
         UIGraphicsEndImageContext();
         
         return image;
@@ -79,7 +79,7 @@ public extension UIImage {
     */
     public class func grh_image(withColor color: UIColor, withCornerRadius cornerRadius: CGFloat) -> UIImage {
         let width: CGFloat = cornerRadius * 2 + 3;
-        return self.grh_image(withSize: CGSizeMake(width, width), withColor: color, withBorder: 0, withBorderColor: nil, withCornerRadius: cornerRadius);
+        return self.grh_image(withSize: CGSize(width: width, height: width), withColor: color, withBorder: 0, withBorderColor: nil, withCornerRadius: cornerRadius);
     }
     
     /**
@@ -94,7 +94,7 @@ public extension UIImage {
     */
     public class func grh_image(withColor color: UIColor, withBorder border: CGFloat, withBorderColor borderColor: UIColor, withCornerRadius cornerRadius: CGFloat) -> UIImage {
         let width: CGFloat = cornerRadius * 2 + 3;
-        return self.grh_image(withSize: CGSizeMake(width, width), withColor: color, withBorder: border, withBorderColor: borderColor, withCornerRadius: cornerRadius);
+        return self.grh_image(withSize: CGSize(width: width, height: width), withColor: color, withBorder: border, withBorderColor: borderColor, withCornerRadius: cornerRadius);
     }
     
     /**
@@ -113,7 +113,7 @@ public extension UIImage {
         var backgroundColor: UIColor? = color;
 
         if (backgroundColor == nil) {
-            backgroundColor = UIColor.clearColor();
+            backgroundColor = UIColor.clear;
         }
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0);
@@ -121,9 +121,9 @@ public extension UIImage {
         let radius: CGFloat = cornerRadius * 2;
         
         if(borderWidth > 0 && borderColor != nil) {
-            let borderPath: UIBezierPath = UIBezierPath(roundedRect: CGRectMake(0, 0, size.width, size.height), cornerRadius: radius);
+            let borderPath: UIBezierPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size.width, height: size.height), cornerRadius: radius);
             
-            if (color == UIColor.clearColor()) {
+            if (color == UIColor.clear) {
                 borderPath.lineWidth = borderWidth;
                 borderColor!.setStroke();
                 borderPath.stroke();
@@ -133,12 +133,12 @@ public extension UIImage {
             }
         }
         
-        let fillPath: UIBezierPath = UIBezierPath(roundedRect: CGRectMake(borderWidth, borderWidth, size.width - 2 * borderWidth, size.height - 2 * borderWidth), cornerRadius: radius);
+        let fillPath: UIBezierPath = UIBezierPath(roundedRect: CGRect(x: borderWidth, y: borderWidth, width: size.width - 2 * borderWidth, height: size.height - 2 * borderWidth), cornerRadius: radius);
         
         backgroundColor!.setFill();
         fillPath.fill();
         
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext();
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!;
         UIGraphicsEndImageContext();
         
         return image;
@@ -160,11 +160,11 @@ public extension UIImage {
         let borderWidth: CGFloat = ceil(border);
 
         let radius: CGFloat = cornerRadius * 2;
-        let borderPath: UIBezierPath = UIBezierPath(roundedRect: CGRectMake(0, 0, size.width, size.height), cornerRadius: radius);
+        let borderPath: UIBezierPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size.width, height: size.height), cornerRadius: radius);
         
         borderPath.addClip();
         
-        var imageRect: CGRect = CGRectZero;
+        var imageRect: CGRect = CGRect.zero;
         
         var radio: CGFloat = 0;
         if(self.size.width > self.size.height) {
@@ -173,13 +173,13 @@ public extension UIImage {
             radio = self.size.width / size.width;
         }
         
-        let newSize = CGSizeMake(self.size.width * radio, self.size.height * radio);
+        let newSize = CGSize(width: self.size.width * radio, height: self.size.height * radio);
         
         imageRect.origin.x = newSize.width >= size.width ? 0 : (newSize.width - size.width) / 2;
         imageRect.origin.y = newSize.height >= size.height ? 0 : (newSize.height - size.height) / 2;
         imageRect.size = newSize;
         
-        self.drawInRect(CGRectMake(0, 0, size.width, size.height));
+        self.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height));
         
         if(borderColor != nil && borderWidth != 0) {
             borderColor?.setStroke();
@@ -187,7 +187,7 @@ public extension UIImage {
             borderPath.stroke();
         }
 
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext();
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!;
         UIGraphicsEndImageContext();
         
         return image;
@@ -203,7 +203,7 @@ public extension UIImage {
         let halfWidth: CGFloat = floor(size.width / 2);
         let halfHeight: CGFloat = floor(size.height / 2);
         
-        return self .resizableImageWithCapInsets(UIEdgeInsetsMake(halfHeight, halfWidth, halfHeight, halfWidth));
+        return self .resizableImage(withCapInsets: UIEdgeInsetsMake(halfHeight, halfWidth, halfHeight, halfWidth));
     }
     
 }

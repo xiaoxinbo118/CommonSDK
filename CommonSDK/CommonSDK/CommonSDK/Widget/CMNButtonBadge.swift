@@ -9,27 +9,27 @@
 import UIKit
 
 public enum CMNButtonBadgeStyle: Int {
-    case Normal
-    case Small
+    case normal
+    case small
 }
 
 /**
  *  有红点提示的按钮
  *
  */
-public class CMNButtonBadge: UIButton {
-    private let SMALL_WIDTH: CGFloat = 9;
-    private let NORMAL_WIDTH: CGFloat = 15;
-    private let DEFAULT_BACKGROUND_COLOR: UIColor = UIColor.redColor();
-    private let DEFAULT_TEXT_COLOR: UIColor = UIColor.whiteColor();
-    private let DEFAULT_BORDER_COLOR: UIColor = UIColor.whiteColor();
-    private let DEFAULT_FONT_SIZE: UIFont = UIFont.systemFontOfSize(14);
+open class CMNButtonBadge: UIButton {
+    fileprivate let SMALL_WIDTH: CGFloat = 9;
+    fileprivate let NORMAL_WIDTH: CGFloat = 15;
+    fileprivate let DEFAULT_BACKGROUND_COLOR: UIColor = UIColor.red;
+    fileprivate let DEFAULT_TEXT_COLOR: UIColor = UIColor.white;
+    fileprivate let DEFAULT_BORDER_COLOR: UIColor = UIColor.white;
+    fileprivate let DEFAULT_FONT_SIZE: UIFont = UIFont.systemFont(ofSize: 14);
     
-    private var pStyle: CMNButtonBadgeStyle = CMNButtonBadgeStyle.Normal;
-    private var pBadgeValue: Int = 0;
+    fileprivate var pStyle: CMNButtonBadgeStyle = CMNButtonBadgeStyle.normal;
+    fileprivate var pBadgeValue: Int = 0;
     
-    public let badgeLabel: UILabel = UILabel();
-    public var badgeStyle: CMNButtonBadgeStyle {
+    open let badgeLabel: UILabel = UILabel();
+    open var badgeStyle: CMNButtonBadgeStyle {
         get {
             return pStyle;
         }
@@ -37,33 +37,33 @@ public class CMNButtonBadge: UIButton {
             pStyle = value;
             
             switch(pStyle) {
-            case .Small:
-                self.badgeLabel.frm_size = CGSizeMake(self.SMALL_WIDTH, self.SMALL_WIDTH);
+            case .small:
+                self.badgeLabel.frm_size = CGSize(width: self.SMALL_WIDTH, height: self.SMALL_WIDTH);
                 break
             default:
-                self.badgeLabel.frm_size = CGSizeMake(self.NORMAL_WIDTH, self.NORMAL_WIDTH);
+                self.badgeLabel.frm_size = CGSize(width: self.NORMAL_WIDTH, height: self.NORMAL_WIDTH);
                 break
             }
             
             self.badgeLabel.backgroundColor = DEFAULT_BACKGROUND_COLOR;
             self.badgeLabel.textColor = DEFAULT_TEXT_COLOR;
-            self.badgeLabel.layer.borderColor = DEFAULT_BORDER_COLOR.CGColor;
+            self.badgeLabel.layer.borderColor = DEFAULT_BORDER_COLOR.cgColor;
             self.badgeLabel.layer.borderWidth = 1;
-            self.badgeLabel.textAlignment = NSTextAlignment.Center;
+            self.badgeLabel.textAlignment = NSTextAlignment.center;
             self.badgeLabel.font = DEFAULT_FONT_SIZE;
             self.badgeLabel.layer.masksToBounds = true;
         }
     }
     
-    public var badgeValue: Int {
+    open var badgeValue: Int {
         get {
             return pBadgeValue;
         }
         set(value) {
             pBadgeValue = max(0, value);
             
-            self.badgeLabel.hidden = self.badgeValue == 0;
-            if(self.badgeStyle == CMNButtonBadgeStyle.Small) {
+            self.badgeLabel.isHidden = self.badgeValue == 0;
+            if(self.badgeStyle == CMNButtonBadgeStyle.small) {
                 self.badgeLabel.text = "";
                 return;
             }
@@ -76,8 +76,8 @@ public class CMNButtonBadge: UIButton {
     public override init(frame: CGRect) {
         super.init(frame: frame);
         
-        self.badgeStyle = CMNButtonBadgeStyle.Normal;
-        self.badgeLabel.hidden = true;
+        self.badgeStyle = CMNButtonBadgeStyle.normal;
+        self.badgeLabel.isHidden = true;
         self.addSubview(self.badgeLabel);
     }
 
@@ -85,7 +85,7 @@ public class CMNButtonBadge: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews();
         
         self.badgeLabel.layer.cornerRadius = self.badgeLabel.frm_height / 2;
@@ -103,26 +103,26 @@ public class CMNButtonBadge: UIButton {
             referView = self.titleLabel;
         }
         
-        if (referView != nil) {
-            offsetX = self.badgeStyle == CMNButtonBadgeStyle.Normal ? 0 : -3;
+        if let referView = referView {
+            offsetX = self.badgeStyle == CMNButtonBadgeStyle.normal ? 0 : -3;
             offsetY = 5;
             
             switch (self.contentHorizontalAlignment) {
-            case .Right :
+            case .right :
                 x = self.frm_width + offsetX;
-                y = referView!.frm_top + offsetY;
+                y = referView.frm_top + offsetY;
                 break;
-            case .Left :
-                x = referView!.frm_right + offsetX;
-                y = referView!.frm_top + offsetY;
+            case .left :
+                x = referView.frm_right + offsetX;
+                y = referView.frm_top + offsetY;
                 break;
             default:
-                x = referView!.frm_right + offsetX;
-                y = referView!.frm_top + offsetY;
+                x = referView.frm_right + offsetX;
+                y = referView.frm_top + offsetY;
                 break;
             }
             
-            self.badgeLabel.center = CGPointMake(x, y);
+            self.badgeLabel.center = CGPoint(x: x, y: y);
         }
     }
 }

@@ -24,10 +24,10 @@ public extension String {
     *
     *  @param index  目标index
     */
-    public func opt_subStringToIndex(index:NSInteger) -> String {
+    public func opt_subString(toIndex index:NSInteger) -> String {
         if(index < self.opt_length) {
-            let stringIndex = self.startIndex.advancedBy(index);
-            return self.substringToIndex(stringIndex);
+            let stringIndex = self.characters.index(self.startIndex, offsetBy: index);
+            return self.substring(to: stringIndex);
         }
         return self;
     }
@@ -38,10 +38,10 @@ public extension String {
     *
     *  @param index  目标index
     */
-    public func opt_subStringFromIndex(index:NSInteger) -> String {
+    public func opt_subString(fromIndex index:NSInteger) -> String {
         if(index < self.opt_length) {
-            let stringIndex = self.startIndex.advancedBy(index);
-            return self.substringFromIndex(stringIndex);
+            let stringIndex = self.characters.index(self.startIndex, offsetBy: index);
+            return self.substring(from: stringIndex);
         }
         
         return self;
@@ -52,7 +52,7 @@ public extension String {
     *
     *  @param str 字符串
     */
-    public static func opt_safeString(str: String?) -> String {
+    public static func opt_safeString(_ str: String?) -> String {
         if (String.vld_isBlank(str)) {
             return "";
         } else {

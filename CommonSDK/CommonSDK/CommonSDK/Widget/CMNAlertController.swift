@@ -9,32 +9,32 @@
 import UIKit
 
 public enum CMNAlertControllerStyle : Int {
-    case ActionSheet
-    case Alert
+    case actionSheet
+    case alert
 
     func convert() -> UIAlertControllerStyle {
         switch self {
-        case .ActionSheet :
-            return UIAlertControllerStyle.ActionSheet;
+        case .actionSheet :
+            return UIAlertControllerStyle.actionSheet;
         default :
-            return UIAlertControllerStyle.Alert;
+            return UIAlertControllerStyle.alert;
         }
     }
 }
 
 public enum CMNAlertActionStyle : Int {
-    case Default
-    case Cancel
-    case Destructive
+    case `default`
+    case cancel
+    case destructive
     
     func convert() -> UIAlertActionStyle {
         switch self {
-        case .Cancel :
-            return UIAlertActionStyle.Cancel;
-        case .Destructive :
-            return UIAlertActionStyle.Destructive;
+        case .cancel :
+            return UIAlertActionStyle.cancel;
+        case .destructive :
+            return UIAlertActionStyle.destructive;
         default :
-            return UIAlertActionStyle.Default;
+            return UIAlertActionStyle.default;
         }
     }
 }
@@ -43,10 +43,10 @@ public enum CMNAlertActionStyle : Int {
  *  AlertController的按钮元素
  *
  */
-public class CMNAlertAction: NSObject {
+open class CMNAlertAction: NSObject {
     var title: String;
     var style: CMNAlertActionStyle;
-    var action: ((alertAction: CMNAlertAction) -> Void)?;
+    var action: ((_ alertAction: CMNAlertAction) -> Void)?;
     
     /**
      *  初始化（action通过addAction添加）
@@ -55,7 +55,7 @@ public class CMNAlertAction: NSObject {
      *  @param style 类型
      *  @param action 事件
      */
-    public init(title aTitle: String, style aStyle: CMNAlertActionStyle, action aAction: ((alertAction: CMNAlertAction) -> Void)?) {
+    public init(title aTitle: String, style aStyle: CMNAlertActionStyle, action aAction: ((_ alertAction: CMNAlertAction) -> Void)?) {
         self.title = aTitle;
         self.style = aStyle;
         self.action = aAction;
@@ -65,7 +65,7 @@ public class CMNAlertAction: NSObject {
     
     func performAction() {
         if(self.action != nil) {
-            self.action!(alertAction: self);
+            self.action!(self);
         }
         self.action = nil;
     }
@@ -75,11 +75,11 @@ public class CMNAlertAction: NSObject {
  *  支持iOS7的AlertController
  *
  */
-public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDelegate {
-    private var actions: [CMNAlertAction] = [];
-    private var adaptiveAlert: AnyObject?;
-    private var pStyle: CMNAlertControllerStyle;
-    private var alertViewController: CMNAlertController?; // 自己引用自己，防止被释放， 主要用在iOS7.0的情况
+open class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDelegate {
+    fileprivate var actions: [CMNAlertAction] = [];
+    fileprivate var adaptiveAlert: AnyObject?;
+    fileprivate var pStyle: CMNAlertControllerStyle;
+    fileprivate var alertViewController: CMNAlertController?; // 自己引用自己，防止被释放， 主要用在iOS7.0的情况
     
     
     var style: CMNAlertControllerStyle {
@@ -109,10 +109,10 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
      *  @param confirmTitle 按钮名称
      *  @param confirm 按钮点击事件
      */
-    convenience public init(title aTitle: String?, message aMessage: String?, confirmTitle aConfirmTitle: String, confirmAction confirm: ((alertAction: CMNAlertAction) -> Void)?) {
-        self.init(title: aTitle, message: aMessage, style: CMNAlertControllerStyle.Alert);
+    convenience public init(title aTitle: String?, message aMessage: String?, confirmTitle aConfirmTitle: String, confirmAction confirm: ((_ alertAction: CMNAlertAction) -> Void)?) {
+        self.init(title: aTitle, message: aMessage, style: CMNAlertControllerStyle.alert);
         
-        self.addAction(CMNAlertAction(title: aConfirmTitle, style: CMNAlertActionStyle.Default, action: confirm));
+        self.addAction(CMNAlertAction(title: aConfirmTitle, style: CMNAlertActionStyle.default, action: confirm));
     }
 
     /**
@@ -123,7 +123,7 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
      *  @param cancelAction 取消点击事件
      *  @param confirmAction 确定点击事件
      */
-    convenience public init(title aTitle: String?, message aMessage: String?, cancelAction cancel: ((alertAction: CMNAlertAction) -> Void)?, confirmAction confirm: ((alertAction: CMNAlertAction) -> Void)?) {
+    convenience public init(title aTitle: String?, message aMessage: String?, cancelAction cancel: ((_ alertAction: CMNAlertAction) -> Void)?, confirmAction confirm: ((_ alertAction: CMNAlertAction) -> Void)?) {
         self.init(title: aTitle, message: aMessage, cancelTitle: "取消", cancelAction: cancel, confirmTitle: "确定", confirmAction: confirm);
     }
 
@@ -137,11 +137,11 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
      *  @param confirmTitle 按钮名称
      *  @param confirmAction 确定点击事件
      */
-    convenience public init(title aTitle: String?, message aMessage: String?, cancelTitle aCancelTitle: String, cancelAction cancel: ((alertAction: CMNAlertAction) -> Void)?, confirmTitle aConfirmTitle: String, confirmAction confirm: ((alertAction: CMNAlertAction) -> Void)?) {
-        self.init(title: aTitle, message: aMessage, style: CMNAlertControllerStyle.Alert);
+    convenience public init(title aTitle: String?, message aMessage: String?, cancelTitle aCancelTitle: String, cancelAction cancel: ((_ alertAction: CMNAlertAction) -> Void)?, confirmTitle aConfirmTitle: String, confirmAction confirm: ((_ alertAction: CMNAlertAction) -> Void)?) {
+        self.init(title: aTitle, message: aMessage, style: CMNAlertControllerStyle.alert);
     
-        self.addAction(CMNAlertAction(title: aCancelTitle, style: CMNAlertActionStyle.Cancel, action: cancel));
-        self.addAction(CMNAlertAction(title: aConfirmTitle, style: CMNAlertActionStyle.Default, action: confirm));
+        self.addAction(CMNAlertAction(title: aCancelTitle, style: CMNAlertActionStyle.cancel, action: cancel));
+        self.addAction(CMNAlertAction(title: aConfirmTitle, style: CMNAlertActionStyle.default, action: confirm));
     }
     
     /**
@@ -149,7 +149,7 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
      *
      *  @param action
      */
-    public func addAction(action: CMNAlertAction) {
+    open func addAction(_ action: CMNAlertAction) {
         self.actions.append(action);
         
         if (UIDevice.cmn_isVersion8OrAbove()) {
@@ -160,20 +160,20 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
             let alertViewController: UIAlertController? = self.adaptiveAlert as? UIAlertController;
             alertViewController?.addAction(alertAction);
         } else {
-            if (self.style == CMNAlertControllerStyle.Alert) {
+            if (self.style == CMNAlertControllerStyle.alert) {
                 let alertView: UIAlertView? = self.adaptiveAlert as? UIAlertView;
-                let currentButtonIndex: NSInteger? = alertView?.addButtonWithTitle(action.title);
+                let currentButtonIndex: NSInteger? = alertView?.addButton(withTitle: action.title);
                 
-                if (action.style == CMNAlertActionStyle.Cancel) {
+                if (action.style == CMNAlertActionStyle.cancel) {
                     alertView?.cancelButtonIndex = currentButtonIndex!;
                 }
             } else {
                 let actionSheet: UIActionSheet? = self.adaptiveAlert as? UIActionSheet;
-                let currentButtonIndex: NSInteger? = actionSheet?.addButtonWithTitle(action.title);
+                let currentButtonIndex: NSInteger? = actionSheet?.addButton(withTitle: action.title);
                 
-                if (action.style == CMNAlertActionStyle.Cancel) {
+                if (action.style == CMNAlertActionStyle.cancel) {
                     actionSheet?.cancelButtonIndex = currentButtonIndex!;
-                } else if (action.style == CMNAlertActionStyle.Destructive) {
+                } else if (action.style == CMNAlertActionStyle.destructive) {
                     actionSheet?.destructiveButtonIndex = currentButtonIndex!;
                 }
             }
@@ -185,7 +185,7 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
      *
      *  @param animated 是否动画
      */
-    public func present(animated flag: Bool) {
+    open func present(animated flag: Bool) {
         self.present(fromViewController: nil, animated: flag);
     }
 
@@ -195,7 +195,7 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
      *  @param fromViewController 指定viewController
      *  @param animated 是否动画
      */
-    public func present(fromViewController viewController: UIViewController?, animated flag: Bool) {
+    open func present(fromViewController viewController: UIViewController?, animated flag: Bool) {
         if (UIDevice.cmn_isVersion8OrAbove()) {
             let alertViewController: UIAlertController? = self.adaptiveAlert as? UIAlertController;
             
@@ -204,12 +204,12 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
                 var fromViewController: UIViewController? = viewController;
                 if (fromViewController == nil) {
                     
-                    if (UIApplication.sharedApplication().keyWindow == nil ||
-                        UIApplication.sharedApplication().keyWindow!.rootViewController == nil) {
+                    if (UIApplication.shared.keyWindow == nil ||
+                        UIApplication.shared.keyWindow!.rootViewController == nil) {
                         return;
                     }
                     
-                    fromViewController = UIApplication.sharedApplication().keyWindow!.rootViewController;
+                    fromViewController = UIApplication.shared.keyWindow!.rootViewController;
                     
                     while ((fromViewController!.presentedViewController) != nil) {
                         fromViewController = fromViewController!.presentedViewController;
@@ -220,7 +220,7 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
                     }
                 }
                 
-                fromViewController!.presentViewController(alertViewController!, animated: flag, completion: nil);
+                fromViewController!.present(alertViewController!, animated: flag, completion: nil);
             }
         } else {
             self.alertViewController = self;
@@ -228,18 +228,18 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
             if let alertView = self.adaptiveAlert as? UIAlertView {
                 alertView.show();
             } else if let actionSheet = self.adaptiveAlert as? UIActionSheet {
-                if(UIApplication.sharedApplication().keyWindow != nil) {
-                    actionSheet.showInView(UIApplication.sharedApplication().keyWindow!);
+                if(UIApplication.shared.keyWindow != nil) {
+                    actionSheet.show(in: UIApplication.shared.keyWindow!);
                 }
             }
         }
     }
     
-    private func initAlert(title aTitle: String?, message aMessage: String?) {
+    fileprivate func initAlert(title aTitle: String?, message aMessage: String?) {
         if (UIDevice.cmn_isVersion8OrAbove()) {
             self.adaptiveAlert = UIAlertController(title: aTitle, message: aMessage, preferredStyle: self.style.convert());
         } else {
-            if (self.style == CMNAlertControllerStyle.ActionSheet) {
+            if (self.style == CMNAlertControllerStyle.actionSheet) {
                 self.adaptiveAlert = UIActionSheet(title: aTitle, delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
             } else {
                 self.adaptiveAlert = UIAlertView(title: aTitle, message: aMessage, delegate: self, cancelButtonTitle: nil);
@@ -247,31 +247,31 @@ public class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDel
         }
     }
     
-    public func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+    open func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
         if (buttonIndex < self.actions.count) {
             self.actions[buttonIndex].performAction();
         }
     }
     
-    public func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
+    open func actionSheet(_ actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         self.alertViewController = nil;
     }
     
-    public func actionSheetCancel(actionSheet: UIActionSheet) {
+    open func actionSheetCancel(_ actionSheet: UIActionSheet) {
         self.alertViewController = nil;
     }
     
-    public func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+    open func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         if (buttonIndex < self.actions.count) {
             self.actions[buttonIndex].performAction();
         }
     }
     
-    public func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
+    open func alertView(_ alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
         self.alertViewController = nil;
     }
     
-    public func alertViewCancel(alertView: UIAlertView) {
+    open func alertViewCancel(_ alertView: UIAlertView) {
         self.alertViewController = nil;
     }
 }

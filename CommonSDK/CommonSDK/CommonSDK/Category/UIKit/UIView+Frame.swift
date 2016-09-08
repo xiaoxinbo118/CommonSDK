@@ -68,7 +68,7 @@ public extension UIView {
     
     public var frm_right : CGFloat {
         get {
-            return CGRectGetMaxX(self.frame);
+            return self.frame.maxX;
         }
         set(newValue) {
             var origin : CGPoint = self.frm_origin;
@@ -90,7 +90,7 @@ public extension UIView {
 
     public var frm_bottom : CGFloat {
         get {
-            return CGRectGetMaxY(self.frame);
+            return self.frame.maxY;
         }
         set(newValue) {
             var origin : CGPoint = self.frm_origin;

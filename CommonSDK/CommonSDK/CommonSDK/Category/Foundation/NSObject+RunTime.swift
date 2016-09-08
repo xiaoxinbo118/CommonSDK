@@ -19,7 +19,7 @@ public extension NSObject {
     *  @param oSelector 老方法
     *  @param newSelector 新方法
     */
-    public class func rtm_swizzleMethod(oSelector: Selector, newSelector nSelector: Selector) {
+    public class func rtm_swizzleMethod(_ oSelector: Selector, newSelector nSelector: Selector) {
         let cls : AnyClass = self.classForCoder();
         let oMethod : Method = class_getInstanceMethod(cls, oSelector);
         let nMethod : Method = class_getInstanceMethod(cls, nSelector);
@@ -39,10 +39,10 @@ public extension NSObject {
     *  @param object 被关联对象
     *  @param key   key
     */
-    public func rtm_associateStrongNonatomicObject(obj:AnyObject?, key aKey:String!) {
+    public func rtm_associateStrongNonatomicObject(_ obj:Any?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
-    public class func rtm_associateStrongNonatomicObject(obj:AnyObject?, key aKey:String!) {
+    public class func rtm_associateStrongNonatomicObject(_ obj:Any?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
@@ -52,10 +52,10 @@ public extension NSObject {
     *  @param object 被关联对象
     *  @param key   key
     */
-    public func rtm_associateStrongAtomicObject(obj:AnyObject?, key aKey:String!) {
+    public func rtm_associateStrongAtomicObject(_ obj:Any?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
-    public class func rtm_associateStrongAtomicObject(obj:AnyObject?, key aKey:String!) {
+    public class func rtm_associateStrongAtomicObject(_ obj:Any?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
     
@@ -65,10 +65,10 @@ public extension NSObject {
     *  @param object 被关联对象
     *  @param key   key
     */
-    public func rtm_associateCopyNonatomicObject(obj:AnyObject?, key aKey:String!) {
+    public func rtm_associateCopyNonatomicObject(_ obj:Any?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
-    public class func rtm_associateCopyNonatomicObject(obj:AnyObject?, key aKey:String!) {
+    public class func rtm_associateCopyNonatomicObject(_ obj:Any?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
 
@@ -78,10 +78,10 @@ public extension NSObject {
     *  @param object 被关联对象
     *  @param key   key
     */
-    public func rtm_associateCopyAtomicObject(obj:AnyObject?, key aKey:String!) {
+    public func rtm_associateCopyAtomicObject(_ obj:Any?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY)
     }
-    public class func rtm_associateCopyAtomicObject(obj:AnyObject?, key aKey:String!) {
+    public class func rtm_associateCopyAtomicObject(_ obj:AnyObject?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY)
     }
     
@@ -91,10 +91,10 @@ public extension NSObject {
     *  @param object 被关联对象
     *  @param key   key
     */
-    public func rtm_associateWeakAtomicObject(obj:AnyObject?, key aKey:String!) {
+    public func rtm_associateWeakAtomicObject(_ obj:Any?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
     }
-    public class func rtm_associateWeakAtomicObject(obj:AnyObject?, key aKey:String!) {
+    public class func rtm_associateWeakAtomicObject(_ obj:Any?, key aKey:String!) {
         objc_setAssociatedObject(self, aKey, obj, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
     }
     
@@ -105,11 +105,11 @@ public extension NSObject {
     *
     *  @return 被关联对象的value
     */
-    public func rtm_associatedObjectForKey(key:String) -> AnyObject? {
-        return objc_getAssociatedObject(self, key);
+    public func rtm_associatedObjectForKey(_ key:String) -> AnyObject? {
+        return objc_getAssociatedObject(self, key) as AnyObject?;
     }
-    public class func rtm_associatedObjectForKey(key:String) -> AnyObject? {
-        return objc_getAssociatedObject(self, key);
+    public class func rtm_associatedObjectForKey(_ key:String) -> AnyObject? {
+        return objc_getAssociatedObject(self, key) as AnyObject?;
     }
     
     /*!
@@ -126,29 +126,29 @@ public extension NSObject {
     *  toodo 是否只读
     *  @brief  获得所有的属性
     */
-    public func rtm_eachProperty(block: ((name: String, value: AnyObject?, readyOnly: Bool, inout stop: Bool) -> Void)) {
+    public func rtm_eachProperty(_ block: ((_ name: String, _ value: Any?, _ readyOnly: Bool, _ stop: inout Bool) -> Void)) {
         
-        let countPoint: UnsafeMutablePointer<UInt32> = UnsafeMutablePointer<UInt32>.alloc(1);
-        let properties: UnsafeMutablePointer<objc_property_t> = class_copyPropertyList(self.classForCoder, countPoint);
+        let countPoint: UnsafeMutablePointer<UInt32> = UnsafeMutablePointer<UInt32>.allocate(capacity: 1);
+        let properties: UnsafeMutablePointer<objc_property_t?> = class_copyPropertyList(self.classForCoder, countPoint);
         
-        let count: Int = Int(countPoint.memory);
+        let count: Int = Int(countPoint.pointee);
         
-        countPoint.destroy();
-        countPoint.dealloc(1);
+        countPoint.deinitialize();
+        countPoint.deallocate(capacity: 1);
         
         var stop: Bool = false;
         
-        for(var x: Int = 0; x < count; x++) {
+        for x in 0 ..< count {
             let property = properties[x];
-            let name: String! = String.fromCString(property_getName(property));
+            let name: String! = String(cString: property_getName(property));
 //            let attr: String! = String.fromCString(property_getAttributes(property));
             
             var value: AnyObject?;
-            if(self.respondsToSelector(Selector(name))) {
-                value = self.valueForKey(name);
+            if(self.responds(to: Selector(name))) {
+                value = self.value(forKey: name) as AnyObject?;
             }
             
-            block(name: name, value: value, readyOnly: false, stop: &stop);
+            block(name, value, false, &stop);
             
             if(stop == true) {
                 break;

@@ -16,17 +16,17 @@ public extension UIViewController {
     /**
      *  系统按钮点击区域比较大， 此View用来调节按钮点击区域
      */
-    private class Nav_NavigationBarView: UIView {
-        var touchedEdgeInsets: UIEdgeInsets = UIEdgeInsetsZero;
+    fileprivate class Nav_NavigationBarView: UIView {
+        var touchedEdgeInsets: UIEdgeInsets = UIEdgeInsets.zero;
         
-        override private func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-            let result = super.pointInside(point, withEvent: event);
+        override fileprivate func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+            let result = super.point(inside: point, with: event);
             
             if (result) {
                 return result;
             } else {
                 let rect = UIEdgeInsetsInsetRect(self.bounds, self.touchedEdgeInsets);
-                return CGRectContainsPoint(rect, point);
+                return rect.contains(point);
             }
         }
     }
@@ -35,7 +35,7 @@ public extension UIViewController {
      *  返回前一画面事件
      */
     public func nav_back() {
-        self.nav_controller()?.popViewControllerAnimated(true);
+        self.nav_controller()?.popViewController(animated: true);
     }
     
     /**
@@ -57,7 +57,7 @@ public extension UIViewController {
      *  @param text 标题内容
      */
     public func nav_setTitle(text aText: String) {
-        self.nav_setTitle(text: aText, textColor: UIColor.blackColor());
+        self.nav_setTitle(text: aText, textColor: UIColor.black);
     }
     
     /**
@@ -71,11 +71,11 @@ public extension UIViewController {
             return;
         }
         
-        let titleLabel: UILabel = UILabel(frame: CGRectMake(0, 0, 100, 30));
-        titleLabel.textAlignment = NSTextAlignment.Center;
+        let titleLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 30));
+        titleLabel.textAlignment = NSTextAlignment.center;
         titleLabel.textColor = aTextColor;
         titleLabel.text = aText;
-        titleLabel.font = UIFont.systemFontOfSize(24);
+        titleLabel.font = UIFont.systemFont(ofSize: 24);
         
         self.nav_controller()?.navigationItem.titleView = titleLabel;
     }
@@ -84,8 +84,8 @@ public extension UIViewController {
      *  清空左侧按钮
      */
     public func nav_clearLeftButton() {
-        let btn: UIButton = UIButton(type: UIButtonType.Custom);
-        btn.frame = CGRectMake(0, 0, 15, 44);
+        let btn: UIButton = UIButton(type: UIButtonType.custom);
+        btn.frame = CGRect(x: 0, y: 0, width: 15, height: 44);
         let baritem = UIBarButtonItem(customView: btn);
         
         self.nav_controller()?.navigationItem.leftBarButtonItem = baritem;
@@ -106,7 +106,7 @@ public extension UIViewController {
      *  @return 按钮
      */
     public func nav_setLeftButton(image aImage: UIImage) -> CMNButtonBadge {
-        return self.nav_setLeftButton(text: "", textColor: nil, image: aImage, target: self, action: Selector("nav_back"));
+        return self.nav_setLeftButton(text: "", textColor: nil, image: aImage, target: self, action: #selector(UIViewController.nav_back));
     }
 
     /**
@@ -145,7 +145,7 @@ public extension UIViewController {
     public func nav_setLeftButton(text aText: String?, textColor aTextColor: UIColor?, image aImage: UIImage?, target aTarget: AnyObject, action aAction: Selector) -> CMNButtonBadge {
         
         var btn: CMNButtonBadge?;
-        let barItem: UIBarButtonItem = self.nav_barButtonItem(text: aText, textColor: aTextColor, image: aImage, align: UIControlContentHorizontalAlignment.Left, target: aTarget, action: aAction, button: &btn!);
+        let barItem: UIBarButtonItem = self.nav_barButtonItem(text: aText, textColor: aTextColor, image: aImage, align: UIControlContentHorizontalAlignment.left, target: aTarget, action: aAction, button: &btn!);
         
         self.nav_controller()?.navigationItem.leftBarButtonItem = barItem;
         return btn!;
@@ -177,9 +177,9 @@ public extension UIViewController {
      */
     public func nav_setRightButton(image1 aImage1: UIImage, action1 aAction1: Selector, target1 aTarget1: AnyObject, image2 aImage2: UIImage, target2 aTarget2: AnyObject, action2 aAction2: Selector) -> [CMNButtonBadge] {
         var btn1: CMNButtonBadge?;
-        let barItem1: UIBarButtonItem = self.nav_barButtonItem(text: "", textColor: nil, image: aImage1, align: UIControlContentHorizontalAlignment.Right, target: self, action: aAction1, button: &btn1!);
+        let barItem1: UIBarButtonItem = self.nav_barButtonItem(text: "", textColor: nil, image: aImage1, align: UIControlContentHorizontalAlignment.right, target: self, action: aAction1, button: &btn1!);
         var btn2: CMNButtonBadge?;
-        let barItem2: UIBarButtonItem = self.nav_barButtonItem(text: "", textColor: nil, image: aImage2, align: UIControlContentHorizontalAlignment.Right, target: self, action: aAction2, button: &btn2!);
+        let barItem2: UIBarButtonItem = self.nav_barButtonItem(text: "", textColor: nil, image: aImage2, align: UIControlContentHorizontalAlignment.right, target: self, action: aAction2, button: &btn2!);
 
         self.nav_controller()?.navigationItem.rightBarButtonItems = [barItem1, barItem2];
         
@@ -223,7 +223,7 @@ public extension UIViewController {
     public func nav_setRightButton(text aText: String?, textColor aTextColor: UIColor?, image aImage: UIImage?, target aTarget: AnyObject, action aAction: Selector) -> CMNButtonBadge {
         
         var btn: CMNButtonBadge?;
-        let barItem: UIBarButtonItem = self.nav_barButtonItem(text: aText, textColor: aTextColor, image: aImage, align: UIControlContentHorizontalAlignment.Right, target: aTarget, action: aAction, button: &btn!);
+        let barItem: UIBarButtonItem = self.nav_barButtonItem(text: aText, textColor: aTextColor, image: aImage, align: UIControlContentHorizontalAlignment.right, target: aTarget, action: aAction, button: &btn!);
         
         self.nav_controller()?.navigationItem.leftBarButtonItem = barItem;
         return btn!;
@@ -241,11 +241,11 @@ public extension UIViewController {
      *  @param button 按钮
      *  @return 按钮BarItem
      */
-    private func nav_barButtonItem(text aText: String?, textColor aTextColor: UIColor?, image aImage: UIImage?, align horizontalAlign:UIControlContentHorizontalAlignment, target aTarget: AnyObject, action aAction: Selector, inout button btn: CMNButtonBadge) -> UIBarButtonItem {
+    fileprivate func nav_barButtonItem(text aText: String?, textColor aTextColor: UIColor?, image aImage: UIImage?, align horizontalAlign:UIControlContentHorizontalAlignment, target aTarget: AnyObject, action aAction: Selector, button btn: inout CMNButtonBadge) -> UIBarButtonItem {
         
-        var frame: CGRect = CGRectMake(0, 7, 80, 30);
+        var frame: CGRect = CGRect(x: 0, y: 7, width: 80, height: 30);
         if (aImage != nil) {
-            frame = CGRectMake(0, 0, aImage!.size.width, aImage!.size.height);
+            frame = CGRect(x: 0, y: 0, width: aImage!.size.width, height: aImage!.size.height);
         }
 
         btn = CMNButtonBadge(frame: frame);
@@ -262,7 +262,7 @@ public extension UIViewController {
         
         let view = Nav_NavigationBarView(frame: frame);
         
-        if (horizontalAlign == UIControlContentHorizontalAlignment.Left) {
+        if (horizontalAlign == UIControlContentHorizontalAlignment.left) {
             view.touchedEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 0);
         } else {
             view.touchedEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
@@ -271,10 +271,10 @@ public extension UIViewController {
         return UIBarButtonItem(customView: view);
     }
     
-    private func nav_controller() -> UINavigationController? {
-        if (self.parentViewController != nil
-            && !self.parentViewController!.isKindOfClass(UINavigationController.classForCoder())) {
-            return self.parentViewController?.navigationController;
+    fileprivate func nav_controller() -> UINavigationController? {
+        if (self.parent != nil
+            && !self.parent!.isKind(of: UINavigationController.classForCoder())) {
+            return self.parent?.navigationController;
         } else {
             return self.navigationController;
         }

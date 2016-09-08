@@ -8,40 +8,40 @@
 
 import UIKit
 
-var fmt_calendar : NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!;
-var fmt_formatter : NSDateFormatter = NSDateFormatter();
+var fmt_calendar : Calendar = Calendar(identifier: Calendar.Identifier.gregorian);
+var fmt_formatter : DateFormatter = DateFormatter();
 var fmt_String : String = "yyyy-MM-dd HH:mm:ss";
 
-public extension NSDate {
+public extension Date {
     
     public func fmt_year() -> NSInteger {
-        let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Year, fromDate: self);
-        return components.year;
+        let components : DateComponents = (fmt_calendar as NSCalendar).components(NSCalendar.Unit.year, from: self);
+        return components.year!;
     }
 
     public func fmt_month() -> NSInteger {
-        let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Month, fromDate: self);
-        return components.month;
+        let components : DateComponents = (fmt_calendar as NSCalendar).components(NSCalendar.Unit.month, from: self);
+        return components.month!;
     }
 
     public func fmt_day() -> NSInteger {
-        let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Day, fromDate: self);
-        return components.day;
+        let components : DateComponents = (fmt_calendar as NSCalendar).components(NSCalendar.Unit.day, from: self);
+        return components.day!;
     }
     
     public func fmt_hour() -> NSInteger {
-        let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Hour, fromDate: self);
-        return components.hour;
+        let components : DateComponents = (fmt_calendar as NSCalendar).components(NSCalendar.Unit.hour, from: self);
+        return components.hour!;
     }
     
     public func fmt_minute() -> NSInteger {
-        let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Minute, fromDate: self);
-        return components.minute;
+        let components : DateComponents = (fmt_calendar as NSCalendar).components(NSCalendar.Unit.minute, from: self);
+        return components.minute!;
     }
     
     public func fmt_second() -> NSInteger {
-        let components : NSDateComponents = fmt_calendar.components(NSCalendarUnit.Second, fromDate: self);
-        return components.second;
+        let components : DateComponents = (fmt_calendar as NSCalendar).components(NSCalendar.Unit.second, from: self);
+        return components.second!;
     }
     
     /*!
@@ -60,9 +60,9 @@ public extension NSDate {
     *  @param format 格式
     *
     */
-    public func fmt_stringWithFormat(fmt:String!) -> String {
+    public func fmt_stringWithFormat(_ fmt:String!) -> String {
         fmt_formatter.dateFormat = fmt;
-        return fmt_formatter.stringFromDate(self);
+        return fmt_formatter.string(from: self);
     }
     
     /*!
@@ -72,12 +72,12 @@ public extension NSDate {
     *  @param format 格式
     *
     */
-    public class func fmt_dataFromString(string:String?, format fmt:String!) -> NSDate? {
+    public static func fmt_dataFromString(_ string:String?, format fmt:String!) -> Date? {
         if(string == nil) {
             return nil;
         }
         fmt_formatter.dateFormat = fmt_String;
-        return fmt_formatter.dateFromString(string!);
+        return fmt_formatter.date(from: string!);
     }
     
 }
