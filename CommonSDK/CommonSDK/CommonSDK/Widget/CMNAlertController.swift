@@ -44,9 +44,13 @@ public enum CMNAlertActionStyle : Int {
  *
  */
 open class CMNAlertAction: NSObject {
+    public typealias CMNAlertActionBlock = (CMNAlertAction) -> Void;
+    
     var title: String;
     var style: CMNAlertActionStyle;
-    var action: ((_ alertAction: CMNAlertAction) -> Void)?;
+    var action: CMNAlertActionBlock?;
+    
+    public var action1: CMNAlertActionBlock? = nil;
     
     /**
      *  初始化（action通过addAction添加）
@@ -55,7 +59,7 @@ open class CMNAlertAction: NSObject {
      *  @param style 类型
      *  @param action 事件
      */
-    public init(title aTitle: String, style aStyle: CMNAlertActionStyle, action aAction: ((_ alertAction: CMNAlertAction) -> Void)?) {
+    public init(title aTitle: String, style aStyle: CMNAlertActionStyle, action aAction: CMNAlertActionBlock?) {
         self.title = aTitle;
         self.style = aStyle;
         self.action = aAction;
@@ -109,7 +113,7 @@ open class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDeleg
      *  @param confirmTitle 按钮名称
      *  @param confirm 按钮点击事件
      */
-    convenience public init(title aTitle: String?, message aMessage: String?, confirmTitle aConfirmTitle: String, confirmAction confirm: ((_ alertAction: CMNAlertAction) -> Void)?) {
+    convenience public init(title aTitle: String?, message aMessage: String?, confirmTitle aConfirmTitle: String, confirmAction confirm: CMNAlertAction.CMNAlertActionBlock?) {
         self.init(title: aTitle, message: aMessage, style: CMNAlertControllerStyle.alert);
         
         self.addAction(CMNAlertAction(title: aConfirmTitle, style: CMNAlertActionStyle.default, action: confirm));
@@ -123,7 +127,7 @@ open class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDeleg
      *  @param cancelAction 取消点击事件
      *  @param confirmAction 确定点击事件
      */
-    convenience public init(title aTitle: String?, message aMessage: String?, cancelAction cancel: ((_ alertAction: CMNAlertAction) -> Void)?, confirmAction confirm: ((_ alertAction: CMNAlertAction) -> Void)?) {
+    convenience public init(title aTitle: String?, message aMessage: String?, cancelAction cancel: CMNAlertAction.CMNAlertActionBlock?, confirmAction confirm: CMNAlertAction.CMNAlertActionBlock?) {
         self.init(title: aTitle, message: aMessage, cancelTitle: "取消", cancelAction: cancel, confirmTitle: "确定", confirmAction: confirm);
     }
 
@@ -137,7 +141,7 @@ open class CMNAlertController: NSObject, UIAlertViewDelegate, UIActionSheetDeleg
      *  @param confirmTitle 按钮名称
      *  @param confirmAction 确定点击事件
      */
-    convenience public init(title aTitle: String?, message aMessage: String?, cancelTitle aCancelTitle: String, cancelAction cancel: ((_ alertAction: CMNAlertAction) -> Void)?, confirmTitle aConfirmTitle: String, confirmAction confirm: ((_ alertAction: CMNAlertAction) -> Void)?) {
+    convenience public init(title aTitle: String?, message aMessage: String?, cancelTitle aCancelTitle: String, cancelAction cancel: CMNAlertAction.CMNAlertActionBlock?, confirmTitle aConfirmTitle: String, confirmAction confirm: CMNAlertAction.CMNAlertActionBlock?) {
         self.init(title: aTitle, message: aMessage, style: CMNAlertControllerStyle.alert);
     
         self.addAction(CMNAlertAction(title: aCancelTitle, style: CMNAlertActionStyle.cancel, action: cancel));

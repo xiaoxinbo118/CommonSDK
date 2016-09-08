@@ -79,13 +79,24 @@ class ViewController: UIViewController {
 //        
 //        alert!.addAction(CMNAlertAction(title: "取消", style: CMNAlertActionStyle.Cancel, action: nil));
         
-        let alert: CMNAlertController = CMNAlertController(title: "联系", message: "支持iOS7哦～",
-            cancelAction: { (alertAction) -> Void in
-                    NSLog("%@", "cancel");
-                    }) { (alertAction) -> Void in
-                    NSLog("%@", "confirm");
-            };
-        alert.present(animated: true);
+        var a: CMNAlertAction = CMNAlertAction(title: "", style: CMNAlertActionStyle.cancel, action: { (action) in
+            
+        });
+        a.action1 = {(action) in
+        
+        };
+    
+       // var a: CMNAlertAction = CMNAlertAction(CMNAlertAction(title: "取消", style: CMNAlertActionStyle.cancel, action:nil));
+       // a.action1
+        
+//        let alert: CMNAlertController = CMNAlertController(title: "联系", message: "支持iOS7哦～",
+//            cancelAction: { (alertAction) -> Void in
+//                    NSLog("%@", "cancel");
+//                    }) { (alertAction) -> Void in
+//                    NSLog("%@", "confirm");
+//            };
+//        alert.present(animated: true);
+//    }
     }
 }
 
