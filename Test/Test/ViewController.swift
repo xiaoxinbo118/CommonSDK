@@ -83,7 +83,7 @@ class ViewController: UIViewController {
             
         });
         a.action1 = {(action) in
-        
+            
         };
     
        // var a: CMNAlertAction = CMNAlertAction(CMNAlertAction(title: "取消", style: CMNAlertActionStyle.cancel, action:nil));
